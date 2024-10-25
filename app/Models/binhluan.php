@@ -12,10 +12,17 @@ class binhluan extends Model
     protected $primaryKey = 'id_bl';
     protected $fillable = [
         'id_hoa',
-        'id_nguoi',
         'binhluan',
-        
+       'id_nguoi',
     ];
-    // public $timestamps =false;
+    public function hoa()
+    {
+        return $this->belongsTo(Hoa::class, 'id_hoa', 'id_hoa');
+    }
+
     
+    public function nguoidung()
+    {
+        return $this->belongsTo(nguoidung::class, 'id_nguoi', 'id_nguoi');
+    }
 }

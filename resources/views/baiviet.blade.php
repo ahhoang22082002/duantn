@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('web.layout')
 @section('tittle','Bài viết')
 
 @section('content')

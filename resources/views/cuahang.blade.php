@@ -22,22 +22,44 @@
 		
 
 		<div class="untree_co-section product-section before-footer-section">
-		    <div class="container">
-			<div class="row">
-			@foreach ($hoa as $item)
-<div class="col-12 col-md-4 col-lg-3 mb-5">
-    <a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $item->id_hoa]) }}">
-        <img src="img/{{$item->img }}" class="img-fluid product-thumbnail">
-        <h3 class="product-title">{{ $item->tenhoa }}</h3>
-        <strong class="product-price">{{ $item->gia }}</strong>
-        <span class="icon-cross">
-            <img src="img/cross.svg" class="img-fluid">
-        </span>
-    </a>
-</div>
-@endforeach
+		<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+          
+           <h3>Danh mục</h3>
+            
+            <div class="col-md-6 position-relative">
+ 				       <ul class="list-group" id="dropdownMenu" style="position: absolute; top: 100%; left: 0; z-index: 10; ">
+ 				         	  <li class="list-group-item" id="selectedItem">Chọn danh mục</li>
+                                @foreach ($dm as $d)
+                                <a href="{{ route('cuahang.danhmuc',['id_dm'=>$d->id_dm])}}" style="text-decoration:none"><li class="list-group-item dropdown-item" style="display: none;">{{$d->ten_dm}} </li></a>
+                                @endforeach
+                            </ul>
+ 				     	</div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                @foreach ($hoa as $item)
+                <div class="col-12 col-md-4 col-lg-3 mb-5">
+                    <a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $item->id_hoa]) }}">
+                        <img src="img/{{$item->img }}" class="img-fluid product-thumbnail">
+                        <h3 class="product-title">{{ $item->tenhoa }}</h3>
+                        <strong class="product-price">{{ $item->gia }} VNĐ</strong>
+                        <span class="icon-cross">
+                            <img src="img/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            <div class="d-flex justify-content-center">
+            {{ $hoa->links('pagination::bootstrap-5') }}
+
+                </div>
+                
+        </div>
+    </div>
 </div>
 
-		    </div>
 		</div>
 @endsection

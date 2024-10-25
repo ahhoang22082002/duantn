@@ -17,4 +17,9 @@ class hoa extends Model
         'gia',
         'img',
     ];
+    public function danhmuc()
+{
+    return $this->belongsTo(DanhMuc::class, 'id_dm', 'id_dm');
+}
+
 }
