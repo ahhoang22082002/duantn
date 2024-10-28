@@ -10,11 +10,11 @@
 					<div class="row justify-content-between">
 						<div class="col-lg-5">
 							<div class="intro-excerpt">
-								<h1>Chào mừng đến với cửa hàng bán hoa Thiên Lý của chúng tôi</h1>
+								<h1>Chào mừng đến với cửa hàng bán hoa Thiên Lý</h1>
 								
 								<p class="mb-4">Mong muốn được cung cấp tới khách hàng trải nghiệm sử dụng cũng như các loại hoa mới tốt nhất.</p>
 							
-								<p><a href="{{route('cuahang')}}" class="btn btn-secondary me-2">Mua sắm Ngay</a><a href="{{route('cuahang')}}" class="btn btn-white-outline">Khám phá thêm</a></p>
+								<p><a href="{{route('cuahang')}}" class="btn btn-secondary">Mua sắm Ngay</a><a href="{{route('cuahang')}}" class="btn btn-white-outline">Khám phá thêm</a></p>
 							</div>
 						</div>
 						
@@ -32,9 +32,9 @@
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 						<h2 class="mb-4 section-title">Sản phẩm mới.</h2>
 						<p class="mb-4">Khám phá những sản phẩm mới nhất của chúng tôi. </p>
-						<p><a href="{{route('cuahang')}}" class="btn btn-secondary me-2">Mua sắm ngay</a></p>
+						<p><a href="{{route('cuahang')}}" class="btn btn-primary">Mua sắm ngay</a></p>
 					</div> 
-					<!-- End Column 1 -->
+					
 					
 					@foreach($hoa as $h)
 						 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
@@ -145,7 +145,7 @@
 							<li>Tìm cho mình những bó hoa phù hợp cho mọi dịp lễ, sinh nhật hay chỉ đơn giản là để làm đẹp cho không gian sống của bạn.</li>
 							<li>Hãy để những bông hoa của chúng tôi mang lại niềm vui và sự tươi mới cho cuộc sống của bạn. </li>
 						</ul>
-						<p><a href="{{route('cuahang')}}" class="btn btn-secondary me-2">Mua sắm Ngay</a></p>
+						<p><a href="{{route('cuahang')}}" class="btn btn-primary">Mua sắm Ngay</a></p>
 					</div>
 				</div>
 			</div>

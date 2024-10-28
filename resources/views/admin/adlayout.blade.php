@@ -35,7 +35,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="{{route('ad')}}" aria-expanded="false">
                 <span>
                   <iconify-icon icon="solar:home-smile-bold-duotone" class="fs-6"></iconify-icon>
                 </span>
@@ -52,7 +52,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+              <a class="sidebar-link" href="{{route('qldm')}}" aria-expanded="false">
                 <span>
                   <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
                 </span>
@@ -68,7 +68,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+              <a class="sidebar-link" href="{{route('qltk')}}" aria-expanded="false">
                 <span>
                   <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
                 </span>
@@ -101,33 +101,28 @@
             </li>
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              
-              <li class="nav-item dropdown">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <img src="{{asset('admin/assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">My Profile</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">My Account</p>
-                    </a>
-                    <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                      <i class="ti ti-list-check fs-6"></i>
-                      <p class="mb-0 fs-3">My Task</p>
-                    </a>
-                    <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
+    <ul class="navbar-nav">
+        @if (Auth::check())
+        <li class="nav-item"></li>
+        <li class="nav-item d-flex align-items-center">
+    <img src="{{ asset('admin/assets/images/profile/user-1.jpg') }}" alt="User Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;"> <!-- Hình ảnh -->
+    <a class="nav-link" href="#">{{ Auth::user()->ten }}</a> 
+</li>
+
+            <li class="nav-item">
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button type="submit" class="btn btn-link nav-link" style="padding: 0; margin-left: 5px;">Đăng xuất</button>
+                </form>
+            </li>
+        @else
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}"><img src="{{ asset('/img/user.svg') }}"></a>
+            </li>
+        @endif
+    </ul>
+</div>
+
         </nav>
       </header>
       <!--  Header End -->

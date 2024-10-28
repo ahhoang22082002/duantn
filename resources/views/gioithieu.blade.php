@@ -22,63 +22,38 @@
 				</div>
 			</div>
 		<!-- Start Why Choose Us Section -->
-		<div class="why-choose-section">
+		<div class="product-section">
 			<div class="container">
-				<div class="row justify-content-between align-items-center">
-					<div class="col-lg-6">
-						<h2 class="section-title">Why Choose Us</h2>
-						<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.</p>
+				<div class="row">
 
-						<div class="row my-5">
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="img/truck.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Fast &amp; Free Shipping</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
+					<!-- Start Column 1 -->
+					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+						<h2 class="mb-4 section-title">Sản phẩm mới.</h2>
+						<p class="mb-4">Khám phá những sản phẩm mới nhất của chúng tôi. </p>
+						<p><a href="{{route('cuahang')}}" class="btn btn-primary">Mua sắm ngay</a></p>
+					</div> 
+					
+					
+					@foreach($hoa as $h)
+						 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+						<a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $h->id_hoa]) }}">
+							<img src=" img/{{$h->img}}" class="img-fluid product-thumbnail">
+							<h3 class="product-title">{{$h->tenhoa}}</h3>
+							<strong class="product-price">{{$h->gia}}</strong>
 
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="img/bag.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Easy to Shop</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
+							<span class="icon-cross">
+								<img src="img/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					
+					@endforeach
+					
+					<!-- Start Column 2 -->
+					
+					<!-- End Column 2 -->
 
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="img/support.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>24/7 Support</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
-
-							<div class="col-6 col-md-6">
-								<div class="feature">
-									<div class="icon">
-										<img src="img/return.svg" alt="Image" class="imf-fluid">
-									</div>
-									<h3>Hassle Free Returns</h3>
-									<p>Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate.</p>
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-					<div class="col-lg-5">
-						<div class="img-wrap">
-							<img src="img/why-choose-us-img.jpg" alt="Image" class="img-fluid">
-						</div>
-					</div>
-
+				
 				</div>
 			</div>
 		</div>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('danhmuc', function (Blueprint $table) {
             $table->increments('id_dm'); 
             $table->string('ten_dm'); 
+            
             $table->timestamps(); 
         });
     }

@@ -95,7 +95,7 @@
                   <textarea name="" class="form-control" id="message" cols="30" rows="5"></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary-hover-outline">Send Message</button>
+                <button type="submit" class="btn btn-primary">Send Message</button>
               </form>
 
             </div>

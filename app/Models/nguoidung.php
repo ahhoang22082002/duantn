@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable; 
 
-class nguoidung extends Model
+class nguoidung extends Authenticatable
 {
     use HasFactory;
-    protected $table = 'nguoidung';
-    protected $primaryKey = 'id_nguoi';
+
+    protected $table = 'nguoidung'; 
+    protected $primaryKey = 'id_nguoi'; 
 
     protected $fillable = [
         'ten',
@@ -19,6 +20,17 @@ class nguoidung extends Model
         'sdt',
         'role',
     ];
-    
 
+   
+     function getRoleNameAttribute()
+    {
+        return $this->role == 0 ? 'Khách hàng' : 'Admin';
+    }
+
+
+    public function getAuthPassword()
+    {
+        return $this->attributes['matkhau']; 
+    }
+    
 }

@@ -11,7 +11,7 @@ class danhmuc extends Model
     protected $table = 'danhmuc';
     protected $primaryKey = 'id_dm';
     protected $fillable = [
-        'tendm',
+        'ten_dm',
        
     ];
     public function hoa()

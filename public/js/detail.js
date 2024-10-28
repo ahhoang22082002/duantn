@@ -26,3 +26,43 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+
+
+//cart
+
+
+function updateQuantity(id, change) {
+  const quantityInput = document.getElementById(`quantity-${id}`);
+  let currentQuantity = parseInt(quantityInput.value);
+  currentQuantity += change;
+  if (currentQuantity < 1) currentQuantity = 1; 
+  quantityInput.value = currentQuantity;
+
+  const price = parseFloat(quantityInput.getAttribute('data-price')); // Lấy giá từ thuộc tính data-price
+  updateTotal(price, currentQuantity, id); 
+}
+
+function updateTotal(price, quantity, id) {
+  const total = price * quantity; 
+  const totalElement = document.getElementById(`total-${id}`); 
+  totalElement.textContent = `${total.toLocaleString('vi-VN')} VNĐ`;
+
+
+  updateCartTotal();
+}
+
+function updateCartTotal() {
+  const cartItems = document.querySelectorAll('.quantity-amount');
+  let totalSum = 0;
+
+  cartItems.forEach(item => {
+      const quantity = parseInt(item.value); 
+      const price = parseFloat(item.getAttribute('data-price')); 
+
+      totalSum += price * quantity; 
+  });
+
+
+  const cartTotalElement = document.getElementById('cart-total');
+  cartTotalElement.textContent = `${totalSum.toLocaleString('vi-VN')} VNĐ`;
+}

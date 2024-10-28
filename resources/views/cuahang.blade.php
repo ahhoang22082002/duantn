@@ -36,21 +36,45 @@
                                 @endforeach
                             </ul>
  				     	</div>
+                       
         </div>
         <div class="col-md-9">
-            <div class="row">
-                @foreach ($hoa as $item)
-                <div class="col-12 col-md-4 col-lg-3 mb-5">
-                    <a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $item->id_hoa]) }}">
-                        <img src="img/{{$item->img }}" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">{{ $item->tenhoa }}</h3>
-                        <strong class="product-price">{{ $item->gia }} VNĐ</strong>
-                        <span class="icon-cross">
-                            <img src="img/cross.svg" class="img-fluid">
-                        </span>
-                    </a>
-                </div>
-                @endforeach
+          
+           
+
+        <div class="mb-3">
+            <form action="{{ route('hoa.search') }}" method="GET" id="searchForm">
+                 <select name="sort" class="form-select" style="max-width: 150px;"onchange="this.form.submit()">
+                            <option value="">Sắp xếp</option>
+                            <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Giá tăng dần</option>
+                            <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Giá giảm dần</option>
+                            <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Mới nhất</option>
+                            <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Cũ nhất</option>
+                   
+                </select>
+             </form>
+        </div>
+
+            <div id="searchResults" class="row" >
+             <div class="d-flex justify-content-end mb-4">
+                     <form action="{{ route('hoa.search') }}" method="GET" id="searchForm" class="input-group" style="max-width: 400px;">
+                         <input type="text" name="query" class="form-control" placeholder="Tìm kiếm hoa">
+                         <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                     </form>
+            </div>
+            @foreach ($hoa as $item)
+                    <div class="col-12 col-md-4 col-lg-3 mb-5">
+                        <a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $item->id_hoa]) }}">
+                            <img src="img/{{$item->img }}" class="img-fluid product-thumbnail">
+                            <h3 class="product-title">{{ $item->tenhoa }}</h3>
+                            <strong class="product-price">{{ $item->gia }} VNĐ</strong>
+                            <span class="icon-cross">
+                                <img src="img/cross.svg" class="img-fluid">
+                            </span>
+                        </a>
+                    </div>
+            @endforeach
+
             </div>
             <div class="d-flex justify-content-center">
             {{ $hoa->links('pagination::bootstrap-5') }}

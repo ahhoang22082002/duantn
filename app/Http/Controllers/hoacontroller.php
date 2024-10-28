@@ -15,15 +15,12 @@ class hoacontroller extends Controller
         $dm = danhmuc::select('id_dm', 'ten_dm')
             ->orderBy('id_dm', 'asc')
             ->get();
-
+         
         return view('cuahang', compact('hoa', 'dm'));
     }
 
     function chitiethoa($id_hoa) {
         $hoa = hoa::where('id_hoa', $id_hoa)->first();
-
-       
-
         $hoalq = hoa::where('id_dm', $hoa->id_dm)->get();
 
         return view('chitietsp', compact('hoa', 'hoalq'));
@@ -35,10 +32,57 @@ class hoacontroller extends Controller
             ->orderBy('id_hoa', 'asc')
             ->get();
         
-        $dm = danhmuc::select('id_dm', 'tendm')
+        $dm = danhmuc::select('id_dm', 'ten_dm')
             ->where('id_dm', $id_dm)
             ->first();
 
         return view('sptheodm', compact('hoa', 'dm'));
     }
+
+    
+
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $sort = $request->input('sort');
+        $hoaquery = Hoa::join('danhmuc', 'hoa.id_dm', '=', 'danhmuc.id_dm')
+            ->where(function($q) use ($query) {
+                $q->where('hoa.tenhoa', 'LIKE', "%$query%")
+                  ->orWhere('hoa.mota', 'LIKE', "%$query%")
+                  ->orWhere('danhmuc.ten_dm', 'LIKE', "%$query%");
+            })
+            ->select('hoa.*', 'danhmuc.ten_dm as ten_dm')
+            ->distinct();
+
+        switch ($sort) {
+            case 'price_asc':
+                $hoaquery->orderBy('hoa.gia', 'asc');
+                break;
+            case 'price_desc':
+                $hoaquery->orderBy('hoa.gia', 'desc');
+                break;
+            case 'newest':
+                $hoaquery->orderBy('hoa.id_hoa', 'desc');
+                break;
+            case 'oldest':
+                $hoaquery->orderBy('hoa.id_hoa', 'asc');
+                break;
+            default:
+                $hoaquery->orderBy('hoa.id_hoa', 'asc'); 
+                break;
+        }
+
+        $hoa = $hoaquery->distinct()->paginate(8);
+       
+        $dm = DanhMuc::select('id_dm', 'ten_dm')
+            ->orderBy('id_dm', 'asc')
+            ->get();
+        return view('cuahang', compact('hoa', 'dm'));
+    }
+    
+
+
+
+
 }

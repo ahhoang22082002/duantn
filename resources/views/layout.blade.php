@@ -43,11 +43,36 @@
 						<li><a class="nav-link" href="{{route('baiviet')}}">Bài viết</a></li>
 						<li><a class="nav-link" href="{{route('lienhe')}}">Liên hệ</a></li>
 					</ul>
-
 					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-						<li><a class="nav-link" href="#"><img src="{{ asset('/img/user.svg') }}"></a></li>
-						<li><a class="nav-link" href="cart.html"><img src="{{ asset('/img/cart.svg') }}"></a></li>
+							<li class="nav-item">
+        						<a class="nav-link" href="{{ route('cart') }}">
+            						<img src="{{ asset('/img/cart.svg') }}" alt="Giỏ hàng">
+        						</a>
+   							 </li>
+   							 @if (Auth::check())
+   							     <li class="nav-item">
+   							         <a class="nav-link text-dark" href="#">
+   							             {{ Auth::user()->ten }} <!-- Hiển thị tên người dùng -->
+   							         </a>
+   							     </li>
+   							     <li class="nav-item">
+   							         <form action="{{ route('logout') }}" method="POST" class="d-inline">
+   							             @csrf
+   							             <button type="submit" class="nav-link text-dark text-uppercase" style="border: none; background: none; cursor: pointer;">Đăng xuất</button>
+   							         </form>
+   							     </li>
+   							 @else
+   							     <li class="nav-item">
+   							         <a class="nav-link" href="{{ route('login') }}">
+   							             <img src="{{ asset('/img/user.svg') }}" alt="Đăng nhập">
+   							         </a>
+   							     </li>
+   							 @endif
+
+  
 					</ul>
+
+
 				</div>
 			</div>
 				
