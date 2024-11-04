@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="container">
         <h1>Sửa sản phẩm</h1>
-        <form action="{{ route('update', $hoa->id_hoa) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('update', $hoa->id_hoa)  }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label class="form-label">Tên sản phẩm</label>
@@ -25,16 +25,16 @@
                     <option value="">Chọn danh mục</option>
                     @foreach ($danhmuc as $dm)
                         <option value="{{ $dm->id_dm }}" {{ $dm->id_dm == $hoa->id_dm ? 'selected' : '' }}>
-                            {{ $dm->tendm }}
+                            {{ $dm->ten_dm }}
                         </option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Hình ảnh</label>
-                <input type="file" class="form-control" name="img" accept="image/*">
-                <img src="{{ asset('storage/' . $hoa->img) }}" alt="Current Image" class="img-fluid mt-2" style="max-width: 150px;">
-            </div>
+                <img src="{{ asset('img/' . $hoa->img) }}" alt="Current Image" class="img-fluid mt-2" style="max-width: 150px;">
+                <input type="file" class="form-control" name="img" accept="image/jpeg,image/png,image/jpg,image/gif" required>
+                </div>
             <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
         </form>
     </div>

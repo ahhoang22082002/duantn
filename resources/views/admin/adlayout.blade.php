@@ -101,13 +101,13 @@
             </li>
           </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-    <ul class="navbar-nav">
-        @if (Auth::check())
-        <li class="nav-item"></li>
-        <li class="nav-item d-flex align-items-center">
-    <img src="{{ asset('admin/assets/images/profile/user-1.jpg') }}" alt="User Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;"> <!-- Hình ảnh -->
-    <a class="nav-link" href="#">{{ Auth::user()->ten }}</a> 
-</li>
+             <ul class="navbar-nav">
+                 @if (Auth::check())
+                 <li class="nav-item"></li>
+                 <li class="nav-item d-flex align-items-center">
+             <img src="{{ asset('admin/assets/images/profile/user-1.jpg') }}" alt="User Avatar" class="rounded-circle me-2" style="width: 40px; height: 40px;"> <!-- Hình ảnh -->
+             <a class="nav-link" href="#">{{ Auth::user()->ten }}</a> 
+          </li>
 
             <li class="nav-item">
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">

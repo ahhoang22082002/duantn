@@ -27,40 +27,43 @@ class admincontroller extends Controller
    function themsp(){
     $danhmuc = danhmuc::all(); 
     return view('admin.spcrud.themsp',compact('danhmuc'));
-}
-function add(Request $request){
-    $request->validate([
-        'tenhoa' => 'required',
-        'gia' => 'required|numeric',
-        'mota'=>'required',
-        'id_dm' => 'required|exists:danhmuc,id_dm',
-        'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', 
-    ]);
-    $imagePath = $request->file('img')->store('images', 'public');
+    }
+    function add(Request $request){
+        $request->validate([
+            'tenhoa' => 'required',
+            'gia' => 'required|numeric',
+            'mota'=>'required',
+            'id_dm' => 'required|exists:danhmuc,id_dm',
+            'img' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if ($request->hasFile('img')) {
+            $imageName = time() . '.' . $request->img->extension();
+            $request->img->move(public_path('img'), $imageName);
+        }
+    
 
-     hoa::create([
-    'tenhoa' => $request->tenhoa,
-    'gia' => $request->gia,
-    'mota' => $request->mota,
-    'id_dm' => $request->id_dm,
-    'img' => $imagePath, 
-]);
-    return redirect()->route('qlsp')->with('success', 'Sản phẩm đã được thêm thành công.');
-}
-public function edit($id) {
-    // Lấy sản phẩm theo ID
+        hoa::create([
+        'tenhoa' => $request->tenhoa,
+        'gia' => $request->gia,
+        'mota' => $request->mota,
+        'id_dm' => $request->id_dm,
+        'img' =>  $imageName,
+    ]);
+        return redirect()->route('qlsp')->with('success', 'Sản phẩm đã được thêm thành công.');
+    }
+ function edit($id) {
     $hoa = hoa::findOrFail($id);
-    $danhmuc = danhmuc::all(); // Lấy tất cả danh mục để hiển thị trong form
+    $danhmuc = danhmuc::all(); 
     return view('admin.spcrud.suasp', compact('hoa', 'danhmuc'));
 }
 
-public function update(Request $request, $id) {
+function update(Request $request, $id) {
     $request->validate([
         'tenhoa' => 'required',
         'gia' => 'required|numeric',
         'mota' => 'required',
         'id_dm' => 'required|exists:danhmuc,id_dm',
-        'img' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+        'img' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  
     ]);
 
     $hoa = hoa::findOrFail($id);
@@ -71,10 +74,16 @@ public function update(Request $request, $id) {
 
     
     if ($request->hasFile('img')) {
-        $imagePath = $request->file('img')->store('images', 'public');
-        $hoa->img = $imagePath;
+        if ($hoa->img) {
+            $oldImagePath = public_path('img/' . $hoa->img);
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath); 
+            }
+        }
+        $imageName = time() . '.' . $request->img->extension();
+        $request->img->move(public_path('img'), $imageName);
+        $hoa->img = $imageName; 
     }
-
     $hoa->save(); 
     return redirect()->route('qlsp')->with('success', 'Sản phẩm đã được cập nhật thành công.');
 }

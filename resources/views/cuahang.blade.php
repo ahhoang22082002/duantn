@@ -67,7 +67,7 @@
                         <a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $item->id_hoa]) }}">
                             <img src="img/{{$item->img }}" class="img-fluid product-thumbnail">
                             <h3 class="product-title">{{ $item->tenhoa }}</h3>
-                            <strong class="product-price">{{ $item->gia }} VNĐ</strong>
+                            <strong class="product-price">{{ number_format($item->gia, 0, ',', '.') }} VNĐ</strong>
                             <span class="icon-cross">
                                 <img src="img/cross.svg" class="img-fluid">
                             </span>

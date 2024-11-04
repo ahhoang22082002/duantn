@@ -27,15 +27,16 @@
  					                   <input type="hidden" name="name" value="{{ $hoa->tenhoa }}">
  					                   <input type="hidden" name="price" value="{{ $hoa->gia }}">
 
- 					                   <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 200px;">
-    <div class="input-group-prepend">
-        <button class="btn btn-outline-black decrease" type="button" onclick="changeQuantity(event, {{ $hoa->id_hoa }}, -1)">−</button>
-    </div>
-    <input type="number" class="form-control text-center quantity-amount" name="quantity" value="1" min="1" aria-label="Quantity" data-id="{{ $hoa->id_hoa }}">
-    <div class="input-group-append">
-        <button class="btn btn-outline-black increase" type="button" onclick="changeQuantity(event, {{ $hoa->id_hoa }}, 1)">+</button>
-    </div>
-</div>
+										<div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 200px;">
+   												 <div class="input-group-prepend">
+   												     <button class="btn btn-secondary decrease" type="button" onclick="changeQuantity(event, {{ $hoa->id_hoa }}, -1)">−</button>
+   												 </div>
+   												 <input type="number" class="form-control text-center quantity-amount" name="quantity" value="1" min="1" aria-label="Quantity" data-id="{{ $hoa->id_hoa }}">
+   												 <div class="input-group-append">
+   												     <button class="btn btn-secondary  increase" type="button" onclick="changeQuantity(event, {{ $hoa->id_hoa }}, 1)">+</button>
+   												 </div>
+										</div>
+
 
 
  					                   <div class="mt-auto ms-auto"> 

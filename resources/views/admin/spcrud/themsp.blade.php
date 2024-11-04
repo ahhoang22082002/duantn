@@ -24,13 +24,13 @@
                 <select class="form-select" name="id_dm" required>
                     <option value="">Chọn danh mục</option>
                     @foreach ($danhmuc as $dm)
-                        <option value="{{ $dm->id_dm }}">{{ $dm->tendm }}</option>
+                        <option value="{{ $dm->id_dm }}">{{ $dm->ten_dm }}</option>
                     @endforeach
                 </select>
             </div>
             <div class="mb-3">
                 <label class="form-label">Hình ảnh</label>
-                <input type="file" class="form-control" name="img" accept="image/*" required>
+                <input type="file" class="form-control" name="img" accept="image/jpeg,image/png,image/jpg,image/gif" required>
             </div>
             <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
         </form>

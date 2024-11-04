@@ -2,7 +2,18 @@
 @section('tittle','Giỏ hàng')
 
 @section('content')
-
+@if(session('success'))
+    <script>
+        alert('{{ session('success') }}');
+        window.location.href = "{{ route('cart') }}"; 
+    </script>
+@endif
+@if(session('error'))
+    <script>
+        alert('{{ session('error') }}');
+        window.location.href = "{{ route('cart') }}"; 
+    </script>
+@endif
 <!-- Start Hero Section -->
 @section('banner')
 <div class="hero">

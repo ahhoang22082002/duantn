@@ -11,15 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hoadonct', function (Blueprint $table) {
-            $table->increments('id_hoadon'); 
+        Schema::create('donhangct', function (Blueprint $table) {
+            $table->increments('id_donhangct');
+            $table->unsignedInteger('id_donhang'); 
             $table->unsignedInteger('id_hoa');
             $table->bigInteger('soluong');
-            $table->decimal('gia', 8, 2);
-            $table->unsignedInteger('id_km');
-            $table->unsignedInteger('id_danhgia');
+            $table->decimal('gia', 8);
+            $table->unsignedInteger('id_km')->nullable();
+            $table->unsignedInteger('id_danhgia')->nullable();
             $table->timestamps();  
 
+            $table->foreign('id_donhang')
+            ->references('id_donhang')
+            ->on('donhang')
+            ->onDelete('cascade');
+            
             $table->foreign('id_hoa')
             ->references('id_hoa')
             ->on('hoa')
@@ -42,6 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hoadonct');
+        Schema::dropIfExists('donhangct');
     }
 };

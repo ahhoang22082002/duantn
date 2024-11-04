@@ -31,38 +31,57 @@ document.addEventListener('DOMContentLoaded', function () {
 //cart
 
 
-function updateQuantity(id, change) {
-  const quantityInput = document.getElementById(`quantity-${id}`);
-  let currentQuantity = parseInt(quantityInput.value);
-  currentQuantity += change;
-  if (currentQuantity < 1) currentQuantity = 1; 
-  quantityInput.value = currentQuantity;
 
-  const price = parseFloat(quantityInput.getAttribute('data-price')); // Lấy giá từ thuộc tính data-price
-  updateTotal(price, currentQuantity, id); 
+
+function updateQuantity(itemId, change, price) {
+  var quantityInput = document.getElementById('quantity-' + itemId);
+  var newQuantity = parseInt(quantityInput.value) + change;
+
+  if (newQuantity < 1) return; // Không cho phép số lượng nhỏ hơn 1
+
+  quantityInput.value = newQuantity;
+
+  // Cập nhật tổng tiền cho từng sản phẩm
+  var totalCell = document.getElementById('total-' + itemId);
+  totalCell.innerHTML = '$' + numberWithCommas((newQuantity * price).toFixed(2));
+
+  // Gửi yêu cầu Ajax để cập nhật session
+  $.ajax({
+      url: '/cart/update', // Đường dẫn đến route để cập nhật giỏ hàng
+      method: 'POST',
+      data: {
+          id: itemId,
+          quantity: newQuantity,
+          _token: '{{ csrf_token() }}' // Đừng quên token CSRF
+      },
+      success: function(response) {
+          // Cập nhật tổng số tiền giỏ hàng
+          updateCartTotal();
+      }
+  });
 }
 
-function updateTotal(price, quantity, id) {
-  const total = price * quantity; 
-  const totalElement = document.getElementById(`total-${id}`); 
-  totalElement.textContent = `${total.toLocaleString('vi-VN')} VNĐ`;
-
+function updateTotal(price, itemId) {
+  var quantityInput = document.getElementById('quantity-' + itemId);
+  var totalCell = document.getElementById('total-' + itemId);
+  var newTotal = (quantityInput.value * price).toFixed(2);
+  totalCell.innerHTML = '$' + numberWithCommas(newTotal);
 
   updateCartTotal();
 }
 
 function updateCartTotal() {
-  const cartItems = document.querySelectorAll('.quantity-amount');
-  let totalSum = 0;
-
-  cartItems.forEach(item => {
-      const quantity = parseInt(item.value); 
-      const price = parseFloat(item.getAttribute('data-price')); 
-
-      totalSum += price * quantity; 
+  var total = 0;
+  $('.quantity-amount').each(function() {
+      var quantity = $(this).val();
+      var price = $(this).data('price');
+      total += (quantity * price);
   });
-
-
-  const cartTotalElement = document.getElementById('cart-total');
-  cartTotalElement.textContent = `${totalSum.toLocaleString('vi-VN')} VNĐ`;
+  $('#cart-total').html('$' + numberWithCommas(total.toFixed(2)));
 }
+ư
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+

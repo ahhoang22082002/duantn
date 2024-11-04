@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class hoadon extends Model
+class donhang extends Model
 {
     use HasFactory;
-    protected $table = 'hoadon';
-    protected $primaryKey = 'id_hoadon';
+    protected $table = 'donhang';
+    protected $primaryKey = 'id_donhang';
 
     protected $fillable = [
         'id_nguoi',
@@ -22,9 +22,9 @@ class hoadon extends Model
    public function nguoidung(){
     return $this->belongsTo(nguoidung::class, 'id_nguoi', 'id_nguoi');
    }
-   public function hoadonct()
+   public function donhangct()
    {
-       return $this->hasMany(HoaDonCT::class, 'id_hoadon', 'id_hoadon');
+       return $this->hasMany(donhangct::class, 'id_donhang', 'id_donhang');
    }
    
 }

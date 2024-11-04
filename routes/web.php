@@ -5,6 +5,7 @@ use App\Http\Controllers\homecontroller;
 use App\Http\Controllers\hoacontroller;
 use App\Http\Controllers\thanhtoancontroller;
 use App\Http\Controllers\cartcontroller;
+use App\Http\Controllers\donhangcontroller;
 use App\Http\Controllers\admincontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -24,7 +25,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
     Route::post('/cart/add', [CartController::class, 'cartadd'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'cartremove'])->name('cart.remove');
+    Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
+    Route::get('/donhang', [CartController::class, 'orderForm'])->name('order.form');
+    Route::post('/order-submit', [donhangcontroller::class, 'submitOrder'])->name('order.submit');
     Route::get('/thanhtoan',[thanhtoancontroller::class,'showtt'])->name('thanhtoan');
+  
 });
 
 Route::get('/cuahang',[hoacontroller::class,'shop'])->name('cuahang');
@@ -47,7 +52,7 @@ Route::delete('/delete/{id}', [admincontroller::class, 'destroy'])->name('delete
 Route::get('/themdm', [adminController::class, 'themdm'])->name('themdm');
 Route::post('/dmadd', [admincontroller::class, 'dmadd'])->name('dmadd'); 
 Route::get('/dmedit/{id}', [adminController::class, 'dmedit'])->name('dmedit');
-Route::post('/update/{id}', [admincontroller::class, 'dmupdate'])->name('dmupdate');
+Route::post('/dmupdate/{id}', [admincontroller::class, 'dmupdate'])->name('dmupdate');
 Route::delete('/danh-muc/delete/{id}', [admincontroller::class, 'dmdestroy'])->name('dmdelete');
 
 

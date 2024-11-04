@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hoadon', function (Blueprint $table) {
-            $table->increments('id_hoadon'); 
+        Schema::create('donhang', function (Blueprint $table) {
+            $table->increments('id_donhang'); 
             $table->unsignedInteger('id_nguoi');
             $table->string('ten');
             $table->date('ngaydat'); 
             $table->string('trangthai'); 
             $table->string('phuongthuctt'); 
-            $table->decimal('tongtien', 10, 2); 
+            $table->decimal('tongtien', 10); 
             $table->timestamps();  
 
             $table->foreign('id_nguoi')
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hoadon');
+        Schema::dropIfExists('donhang');
     }
 };

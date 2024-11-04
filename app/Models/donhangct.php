@@ -4,15 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Nullable;
 
-class hoadonct extends Model
+class donhangct extends Model
 {
     use HasFactory;
-    protected $table = 'hoadonct';
-    protected $primaryKey = 'id_hoadonct';
+    protected $table = 'donhangct';
+    protected $primaryKey = 'id_donhangct';
 
     protected $fillable = [
-        'id_hoadon',
+        'id_donhang',
         'id_hoa',
         'soluong',
         'gia',
@@ -30,8 +31,8 @@ class hoadonct extends Model
     public function danhgia(){
         return $this->belongsTo(danhgia::class,'id_danhgia','id_danhgia');
     }
-    public function hoadon()
+    public function donhang()
     {
-        return $this->belongsTo(HoaDon::class, 'id_hoadon', 'id_hoadon');
+        return $this->belongsTo(donhang::class, 'id_donhang', 'id_donhang');
     }
 }
