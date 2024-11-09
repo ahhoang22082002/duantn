@@ -22,54 +22,60 @@
 			</div>
             <div class="untree_co-section">
 		    <div class="container">
-		    <!-- để thông tin cá nhân (đã đăng ký trc đó ) -->
+		
 		      <div class="row">
-		        <div class="col-md-6 mb-5 mb-md-0">
-		          <h2 class="h3 mb-3 text-black">Để lại đánh giá cho chúng tôi</h2>
-		          <div class="p-3 p-lg-5 border bg-white">
-		           
-		            <div class="form-group row">
-		              <div class="col-md-6">
-		                <label for="c_fname" class="text-black">Họ <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_fname" name="c_fname">
-		              </div>
-		              <div class="col-md-6">
-		                <label for="c_lname" class="text-black">Tên<span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_lname" name="c_lname">
-		              </div>
-		            </div>
+			 		<div class="col-md-6 mb-5 mb-md-0">
+				    <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
+				    <div class="p-3 p-lg-5 border bg-white">
+				
+				        <div class="form-group row">
+				            <div class="col-md-6">
+				                <label for="c_fname" class="text-black">Tên người dùng</label>
+				               
+								<div class="card">
+								  <div class="card-body py-1">
+								  {{ $user->ten }}
+								  </div>
+								</div>
+				            </div>
+				        </div>
+				
+				        <div class="form-group row">
+				            <div class="col-md-12">
+				                <label for="c_address" class="text-black">Địa chỉ</label>
+				                
+								<div class="card">
+								  <div class="card-body py-1">
+								  {{ Auth::user()->diachi }}
+								  </div>
+								</div>
+				            </div>
+				        </div>
+				
+				        <div class="form-group row mb-5">
+				            <div class="col-md-6">
+				                <label for="c_email_address" class="text-black">Email</label>
+				               
+								<div class="card">
+								  <div class="card-body py-1">
+								  {{ Auth::user()->email }}
+								  </div>
+								</div>
+				            </div>
+				            <div class="col-md-6">
+				                <label for="c_phone" class="text-black">Số điện thoại</label>
+				                
+								<div class="card">
+								  <div class="card-body py-1">
+								  {{ Auth::user()->sdt }}
+								  </div>
+								</div>
+				            </div>
+				        </div>
+				
+				    </div>
+				</div>
 
-		            
-
-		            <div class="form-group row">
-		              <div class="col-md-12">
-		                <label for="c_address" class="text-black">Địa chỉ <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_address" name="c_address" >
-		              </div>
-		            </div>
-
-		       
-		            <div class="form-group row mb-5">
-		              <div class="col-md-6">
-		                <label for="c_email_address" class="text-black">Email <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_email_address" name="c_email_address">
-		              </div>
-		              <div class="col-md-6">
-		                <label for="c_phone" class="text-black">Số điện thoại <span class="text-danger">*</span></label>
-		                <input type="text" class="form-control" id="c_phone" name="c_phone" >
-		              </div>
-		            </div>
-
-		          
-
-		            <div class="form-group">
-		              <label for="c_order_notes" class="text-black">Đánh giá</label>
-		              <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Đánh giá của bạn "></textarea>
-					  <button class="btn btn-primary mt-3" type="button">Xác nhận</button>
-					</div>
-
-		          </div>
-		        </div>
 		        <div class="col-md-6">
 		          <div class="row mb-5">
 		            <div class="col-md-12">
@@ -120,7 +126,7 @@
 						<label for="phuongthuctt">Phương thức thanh toán:</label>
    							 <select name="phuongthuctt" id="phuongthuctt" required>
    							     <option value="cod">Thanh toán khi nhận hàng</option>
-   							     <option value="bank">Chuyển khoản ngân hàng</option>
+   							     <option value="bank">Thanh toán online</option>
 							
    							 </select>
 		                <div class="form-group">

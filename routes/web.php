@@ -25,11 +25,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/cart', [CartController::class, 'cart'])->name('cart');
     Route::post('/cart/add', [CartController::class, 'cartadd'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'cartremove'])->name('cart.remove');
-    Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
+    Route::post('/cart/update', [CartController::class, 'updatecart'])->name('cart.update');
     Route::get('/donhang', [CartController::class, 'orderForm'])->name('order.form');
     Route::post('/order-submit', [donhangcontroller::class, 'submitOrder'])->name('order.submit');
     Route::get('/thanhtoan',[thanhtoancontroller::class,'showtt'])->name('thanhtoan');
-  
+   Route::get('/taikhoan',[Authcontroller::class,'taikhoan'])->name('taikhoan');
+   Route::post('/capnhattaikhoan', [Authcontroller::class, 'capnhattaikhoan'])->name('capnhattaikhoan');
 });
 
 Route::get('/cuahang',[hoacontroller::class,'shop'])->name('cuahang');

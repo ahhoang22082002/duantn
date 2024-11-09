@@ -51,8 +51,8 @@
    							 </li>
    							 @if (Auth::check())
    							     <li class="nav-item">
-   							         <a class="nav-link text-dark" href="#">
-   							             {{ Auth::user()->ten }} <!-- Hiển thị tên người dùng -->
+   							         <a class="nav-link text-dark" href="{{route('taikhoan')}}">
+   							             {{ Auth::user()->ten }} 
    							         </a>
    							     </li>
    							     <li class="nav-item">

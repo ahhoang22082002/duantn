@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\xacnhan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Mail; 
 use App\Models\donhang;
 use App\Models\donhangct;
 class donhangcontroller extends Controller
@@ -14,7 +16,7 @@ class donhangcontroller extends Controller
         $userId = Auth::id();
         $cart = Session::get("cart_{$userId}", []);
         $total = array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0);
-        $phuongThucTT = $request->phuongthuctt === 'cod' ? 'Thanh toán khi nhận hàng' : 'Chuyển khoản ngân hàng';
+        $phuongThucTT = $request->phuongthuctt === 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán online';
         if (empty($cart)) {
             return redirect()->route('cart')->with('error', 'Giỏ hàng của bạn đang trống, không thể thanh toán.');
         }
@@ -47,7 +49,7 @@ class donhangcontroller extends Controller
             Session::forget("cart_{$userId}");
     
             \DB::commit();
-    
+            Mail::to(Auth::user()->email)->send(new xacnhan($order));
             return redirect()->route('cart')->with('success', 'Đặt hàng thành công!');
         } catch (\Exception $e) {
             \DB::rollback();
@@ -55,7 +57,7 @@ class donhangcontroller extends Controller
         }
     }
     
-   
+ 
     
     
     

@@ -196,7 +196,7 @@
     					                <img src="img/TA.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
     					            <h3 class="font-weight-bold">Hoàng Công Tuấn Anh</h3>
-    					            <span class="position d-block mb-3">Backend Interngi</span>
+    					            <span class="position d-block mb-3">Backend Intern</span>
     					        </div>
     					    </div>
     					</div>

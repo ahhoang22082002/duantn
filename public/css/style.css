@@ -674,6 +674,10 @@ textarea {
     background-color: #F9BF29; 
     color: white;
 }
+.list-group-item:hover{
+  background-color: #F9BF29; 
+  color: white;
+}
 
 
   

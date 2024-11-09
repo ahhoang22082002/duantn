@@ -11,11 +11,12 @@ use Illuminate\Support\Facades\Session;
 class thanhtoancontroller extends Controller
 {
     public function showtt(){
+        $user = Auth::user();
         $userId = Auth::id();
         $cart = Session::get("cart_{$userId}", []);
         $totalamount = array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0);
-        return view('thanhtoan', compact('cart','totalamount'));
-      
+        return view('thanhtoan', compact('user', 'cart', 'totalamount'));
+
     }
   
 }

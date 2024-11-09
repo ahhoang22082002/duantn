@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Hash;
 
 class Authcontroller extends Controller
 {
-    public function showRegisterForm()
+    function showRegisterForm()
     {
         return view('register');
     }
-    public function register(Request $request)
+    function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'ten' => 'required|string|max:255',
@@ -39,11 +39,11 @@ class Authcontroller extends Controller
         return redirect()->route('login')->with('success', 'Đăng ký thành công!');
     }
 
-    public function showLoginForm()
+    function showLoginForm()
     {
         return view('login');
     }
-    public function login(Request $request)
+    function login(Request $request)
 {
     $validator = Validator::make($request->all(), [
         'email' => 'required|string|email',
@@ -62,7 +62,7 @@ class Authcontroller extends Controller
     return redirect()->back()->withErrors(['message' => 'Email hoặc mật khẩu không đúng.'])->withInput();
 }
 
-public function ktranguoidung()
+function ktranguoidung()
 {
 
     if (Auth::check()) {
@@ -73,6 +73,40 @@ public function ktranguoidung()
     }
     return redirect()->route('login');
 }
-
-    
+function taikhoan(Request $request){
+    $user = Auth::user();
+    return view('taikhoan', compact('user'));
 }
+function capnhattaikhoan(Request $request)
+    {
+        $user = Auth::user();
+
+        $validator = Validator::make($request->all(), [
+            'ten' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:nguoidung,email,' . $user->id_nguoi . ',id_nguoi',
+            'diachi' => 'nullable|string|max:255',
+            'sdt' => 'nullable|string|max:15',
+            'matkhau' => 'nullable|string|min:6|confirmed',
+            'matkhau_confirmation' => 'nullable|string|min:6|same:matkhau',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user->ten = $request->ten;
+        $user->email = $request->email;
+        $user->diachi = $request->diachi;
+        $user->sdt = $request->sdt;
+        
+        
+        if ($request->filled('matkhau')) {
+            $user->matkhau = Hash::make($request->matkhau);
+        }
+
+        $user->save();
+
+        return redirect()->route('taikhoan')->with('success', 'Cập nhật thông tin thành công!');
+    }
+}
+

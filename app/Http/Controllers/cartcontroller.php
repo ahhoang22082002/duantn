@@ -33,19 +33,17 @@ class cartcontroller extends Controller
         Session::put("cart_{$userId}", $cart);
         return redirect()->route('cart');
     }
-    // CartController.php
-    public function updateCart(Request $request) {
+    public function updatecart(Request $request) {
         $userId = Auth::id();
         $cart = Session::get("cart_{$userId}", []);
-        $id = $request->id;
-        $quantity = $request->quantity;
-    
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity'] = $quantity; // Cập nhật số lượng
-            Session::put("cart_{$userId}", $cart); // Lưu lại giỏ hàng
+
+        foreach ($request->quantity as $id => $quantity) {
+            if (isset($cart[$id])) {
+                $cart[$id]['quantity'] = $quantity;
+            }
         }
-    
-        return response()->json(['success' => true]);
+        Session::put("cart_{$userId}", $cart);
+        return redirect()->route('cart');
     }
 
     function cartremove(Request $request)
@@ -67,5 +65,5 @@ class cartcontroller extends Controller
 
     return view('order_form', compact('cart', 'totalAmount'));
 }
-
+ 
 }
