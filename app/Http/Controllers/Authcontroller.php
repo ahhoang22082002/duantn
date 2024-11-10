@@ -108,5 +108,6 @@ function capnhattaikhoan(Request $request)
 
         return redirect()->route('taikhoan')->with('success', 'Cập nhật thông tin thành công!');
     }
+
 }
 

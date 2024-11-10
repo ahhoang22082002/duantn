@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\hoa;
+use App\Models\donhang;
 use App\Models\danhmuc;
 use App\Models\nguoidung;
 use Illuminate\Http\Request;
@@ -87,7 +88,7 @@ function update(Request $request, $id) {
     $hoa->save(); 
     return redirect()->route('qlsp')->with('success', 'Sản phẩm đã được cập nhật thành công.');
 }
-   public function destroy($id)
+    function destroy($id)
    {
        $hoa = hoa::findOrFail($id); 
        $hoa->delete(); 
@@ -137,5 +138,54 @@ function update(Request $request, $id) {
 function getuser(){
     $user = nguoidung::all();
     return  view('admin.qltaikhoan', compact('user'));
+}
+function xoatk($id){
+    $user = Nguoidung::find($id); 
+
+        if ($user) {
+            $user->delete(); 
+            return redirect()->back()->with('success', 'Tài khoản đã được xóa thành công.');
+        } else {
+            return redirect()->back()->with('error', 'Không tìm thấy tài khoản.');
+        }
+}
+function phanquyen($id)
+{
+    $user = Nguoidung::find($id);
+
+    if ($user) {
+        return view('admin.phanquyen', compact('user'));
+    } else {
+        return redirect()->back()->with('error', 'Không tìm thấy tài khoản.');
+    }
+}
+
+function doiquyen(Request $request, $id)
+{
+    $user = Nguoidung::find($id);
+
+    if ($user) {
+        $user->role = $request->role; 
+        $user->save();
+        
+        return redirect()->route('qltk')->with('success', 'Phân quyền thành công.');
+    } else {
+        return redirect()->back()->with('error', 'Không tìm thấy tài khoản.');
+    }
+}
+
+function showdonhang(){
+    $donhang = Donhang::with(['nguoidung', 'donhangct.hoa'])->get();
+    return view('admin.qldonhang',compact('donhang'));
+}
+function xoadh($id){
+    $dh = donhang::find($id); 
+
+        if ($dh) {
+            $dh->delete(); 
+            return redirect()->back()->with('success', 'Đơn hàng đã được xóa thành công.');
+        } else {
+            return redirect()->back()->with('error', 'Không tìm thấy tài khoản.');
+        }
 }
 }

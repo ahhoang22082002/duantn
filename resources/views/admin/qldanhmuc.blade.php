@@ -4,8 +4,9 @@
 <div class="container-fluid">
 <div class="card-body">
     <div class="row">
-    <a href="{{route('themdm')}}" class="btn btn-primary mb-3">Thêm danh mục</a>
+   
     <div class="table-responsive">
+    <a href="{{route('themdm')}}" class="btn btn-primary mb-3">Thêm danh mục</a>
         <table class="table text-nowrap align-middle mb-0">
             <thead>
                 <tr class="border-2 border-bottom border-primary border-0"> 

@@ -42,6 +42,11 @@ Route::get('/search', [hoacontroller::class, 'search'])->name('hoa.search');
 
 
 Route::get('/ad/qltk',[admincontroller::class,'getuser'])->name('qltk');
+Route::delete('/ad/qltk/delete/{id}', [AdminController::class, 'xoatk'])->name('qltk.delete');
+Route::get('/ad/qltk/phanquyen/{id}', [AdminController::class, 'phanquyen'])->name('qltk.phanquyen');
+Route::post('/ad/qltk/phanquyen/{id}', [AdminController::class, 'doiquyen'])->name('qltk.doiquyen');
+Route::get('/ad/qldh',[admincontroller::class,'showdonhang'])->name('qldh');
+Route::delete('/ad/qldh/delete/{id}', [AdminController::class, 'xoadh'])->name('qldh.delete');
 Route::get('/ad',[admincontroller::class,'dashboard'])->name('ad');
 Route::get('/ad/qlsp',[admincontroller::class,'qlsp'])->name('qlsp');
 Route::get('/ad/qldm',[admincontroller::class,'qldm'])->name('qldm');

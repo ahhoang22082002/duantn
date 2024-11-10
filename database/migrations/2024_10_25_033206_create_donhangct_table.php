@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedInteger('id_donhang'); 
             $table->unsignedInteger('id_hoa');
             $table->bigInteger('soluong');
-            $table->decimal('gia', 8);
+            $table->decimal('gia', 10);
             $table->unsignedInteger('id_km')->nullable();
             $table->unsignedInteger('id_danhgia')->nullable();
             $table->timestamps();  
