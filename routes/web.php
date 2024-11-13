@@ -27,12 +27,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/remove', [CartController::class, 'cartremove'])->name('cart.remove');
     Route::post('/cart/update', [CartController::class, 'updatecart'])->name('cart.update');
     Route::get('/donhang', [CartController::class, 'orderForm'])->name('order.form');
-    Route::post('/order-submit', [donhangcontroller::class, 'submitOrder'])->name('order.submit');
+    Route::post('/order-submit', [thanhtoancontroller::class, 'submitOrder'])->name('order.submit');
     Route::get('/thanhtoan',[thanhtoancontroller::class,'showtt'])->name('thanhtoan');
+   
    Route::get('/taikhoan',[Authcontroller::class,'taikhoan'])->name('taikhoan');
+   Route::get('/taikhoan/donhang',[Donhangcontroller::class,'donhanguser'])->name('taikhoan.donhang');
    Route::post('/capnhattaikhoan', [Authcontroller::class, 'capnhattaikhoan'])->name('capnhattaikhoan');
 });
-
+Route::get('/test',[thanhtoancontroller::class,'test'])->name('test');
 Route::get('/cuahang',[hoacontroller::class,'shop'])->name('cuahang');
 Route::get('/cuahang/{id_hoa}',[hoacontroller::class,'chitiethoa'])->name('cuahang.chitiet');
 Route::get('/cuahang/danhmuc/{id_dm}',[hoacontroller::class,'sptheodm'])->name('cuahang.danhmuc');

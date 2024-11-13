@@ -9,10 +9,6 @@ class hoakhuyenmai extends Model
 {
     use HasFactory;
     protected $table = 'hoakhuyenmai';
-   
-
-    
-    // Các trường có thể gán giá trị hàng loạt
     protected $fillable = [
         'id_hoa',
         'id_km',

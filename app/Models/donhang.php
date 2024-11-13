@@ -18,6 +18,7 @@
             'trangthai',
             'phuongthuctt',
             'tongtien',
+            'id_tt'
         ];
     public function nguoidung(){
         return $this->belongsTo(nguoidung::class, 'id_nguoi', 'id_nguoi');
@@ -25,6 +26,10 @@
     public function donhangct()
     {
         return $this->hasMany(donhangct::class, 'id_donhang', 'id_donhang');
+    }
+    public function thanhtoan()
+    {
+        return $this->hasMany(thanhtoan::class, 'id_tt', 'id_tt');
     }
     
     }

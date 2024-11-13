@@ -19,13 +19,13 @@ class homecontroller extends Controller
      
     }
     function gioithieu(){
-        return view(' gioithieu');
+        return view(' pages.gioithieu');
     }
     function lienhe(){
-        return view(' lienhe');
+        return view(' pages.lienhe');
     }
     function baiviet(){
-        return view(' baiviet');
+        return view(' pages.baiviet');
     }
  
   

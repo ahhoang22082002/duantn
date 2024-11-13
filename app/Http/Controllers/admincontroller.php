@@ -21,13 +21,13 @@ class admincontroller extends Controller
     ->orderBy('id_hoa', 'desc')
     ->paginate(9);
     $tongsanpham = hoa::count(); 
-    return view('admin.qlsanpham', compact('hoa','tongsanpham'));
+    return view('admin.sanpham.qlsanpham', compact('hoa','tongsanpham'));
 
    }
 
    function themsp(){
     $danhmuc = danhmuc::all(); 
-    return view('admin.spcrud.themsp',compact('danhmuc'));
+    return view('admin.sanpham.themsp',compact('danhmuc'));
     }
     function add(Request $request){
         $request->validate([
@@ -55,7 +55,7 @@ class admincontroller extends Controller
  function edit($id) {
     $hoa = hoa::findOrFail($id);
     $danhmuc = danhmuc::all(); 
-    return view('admin.spcrud.suasp', compact('hoa', 'danhmuc'));
+    return view('admin.sanpham.suasp', compact('hoa', 'danhmuc'));
 }
 
 function update(Request $request, $id) {
@@ -97,10 +97,10 @@ function update(Request $request, $id) {
    }
    function qldm(){
        $danhmuc = danhmuc::all(); 
-       return view('admin.qldanhmuc',compact('danhmuc'));
+       return view('admin.danhmuc.qldanhmuc',compact('danhmuc'));
    }
    function themdm(){
-       return view('admin.dmcrud.themdm');
+       return view('admin.danhmuc.themdm');
    }
    function dmadd(Request $request){
        $request->validate([
@@ -116,7 +116,7 @@ function update(Request $request, $id) {
    function dmedit($id)
    {
        $danhmuc = DanhMuc::findOrFail($id);
-       return view('admin.dmcrud.suadm', compact('danhmuc'));
+       return view('admin.danhmuc.suadm', compact('danhmuc'));
    }
    public function dmupdate(Request $request, $id) {
        $request->validate([
@@ -137,7 +137,7 @@ function update(Request $request, $id) {
    }
 function getuser(){
     $user = nguoidung::all();
-    return  view('admin.qltaikhoan', compact('user'));
+    return  view('admin.taikhoan.qltaikhoan', compact('user'));
 }
 function xoatk($id){
     $user = Nguoidung::find($id); 
@@ -154,7 +154,7 @@ function phanquyen($id)
     $user = Nguoidung::find($id);
 
     if ($user) {
-        return view('admin.phanquyen', compact('user'));
+        return view('admin.taikhoan.phanquyen', compact('user'));
     } else {
         return redirect()->back()->with('error', 'Không tìm thấy tài khoản.');
     }
@@ -176,7 +176,7 @@ function doiquyen(Request $request, $id)
 
 function showdonhang(){
     $donhang = Donhang::with(['nguoidung', 'donhangct.hoa'])->get();
-    return view('admin.qldonhang',compact('donhang'));
+    return view('admin.donhang.qldonhang',compact('donhang'));
 }
 function xoadh($id){
     $dh = donhang::find($id); 

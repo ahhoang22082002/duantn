@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\dangky;
 use Illuminate\Http\Request;
 use App\Models\nguoidung;
-
+use Illuminate\Support\Facades\Mail; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +14,7 @@ class Authcontroller extends Controller
 {
     function showRegisterForm()
     {
-        return view('register');
+        return view('lgin_sup.register');
     }
     function register(Request $request)
     {
@@ -21,13 +22,19 @@ class Authcontroller extends Controller
             'ten' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:nguoidung',
             'matkhau' => 'required|string|min:6',
+            'diachi' => 'required|string|max:255',
+          'sdt' => [
+            'required',
+            'regex:/^(0[3|5|7|8|9])[0-9]{8}$/',
+            'max:15' 
+        ],
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        nguoidung::create([
+        $user=nguoidung::create([
             'ten' => $request->ten,
             'email' => $request->email,
             'matkhau' => Hash::make($request->matkhau),
@@ -35,13 +42,13 @@ class Authcontroller extends Controller
             'sdt' => $request->sdt,
            
         ]);
-
+        Mail::to($user->email)->send(new dangky($user));
         return redirect()->route('login')->with('success', 'Đăng ký thành công!');
     }
 
     function showLoginForm()
     {
-        return view('login');
+        return view('lgin_sup.login');
     }
     function login(Request $request)
 {
@@ -75,7 +82,7 @@ function ktranguoidung()
 }
 function taikhoan(Request $request){
     $user = Auth::user();
-    return view('taikhoan', compact('user'));
+    return view('user.taikhoan', compact('user'));
 }
 function capnhattaikhoan(Request $request)
     {

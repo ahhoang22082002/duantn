@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('donhang', function (Blueprint $table) {
             $table->increments('id_donhang'); 
             $table->unsignedInteger('id_nguoi');
+            $table->unsignedInteger('id_tt');
             $table->string('ten');
             $table->date('ngaydat'); 
             $table->string('trangthai'); 
@@ -24,6 +25,11 @@ return new class extends Migration
             $table->foreign('id_nguoi')
             ->references('id_nguoi')
             ->on('nguoidung')
+            ->onDelete('cascade');
+            
+            $table->foreign('id_tt')
+            ->references('id_tt')
+            ->on('thanhtoan')
             ->onDelete('cascade');
         });
     }

@@ -37,17 +37,18 @@ return [
 
     'mailers' => [
 
-        'smtp' => [
-            'transport' => 'smtp',
-            'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', '127.0.0.1'),
-            'port' => env('MAIL_PORT', 2525),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
-            'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+       'smtp' => [
+        'transport' => 'smtp',
+        'url' => env('MAIL_URL'),
+        'host' => 'smtp.gmail.com',
+        'port' => 587, 
+        'encryption' => 'tls', 
+        'username' => 'ahhoang22082002@gmail.com',
+        'password' => 'ucjf ulwl khef zdyn',
+        'timeout' => null,
+        'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
         ],
+
 
         'ses' => [
             'transport' => 'ses',
@@ -109,8 +110,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => 'ahhoang22082002@gmail.com',
+        'name' => 'Shop bán hoa Thiên Lý',
     ],
-
+    
 ];

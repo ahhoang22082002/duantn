@@ -10,7 +10,7 @@ class cartcontroller extends Controller
     function cart(){
         $userId = Auth::id();
         $cart = Session::get("cart_{$userId}", []);
-        return view('cart', compact('cart'));
+        return view('cart_checkout.cart', compact('cart'));
        
       }
 
@@ -54,16 +54,6 @@ class cartcontroller extends Controller
         Session::put("cart_{$userId}", $cart);
         return redirect()->route('cart');
     }
-    public function orderForm()
-{
-    $userId = Auth::id();
-    $cart = Session::get("cart_{$userId}", []);
 
-    $totalAmount = array_reduce($cart, function ($carry, $item) {
-        return $carry + ($item['price'] * $item['quantity']);
-    }, 0);
-
-    return view('order_form', compact('cart', 'totalAmount'));
-}
  
 }
