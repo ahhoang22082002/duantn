@@ -5,7 +5,7 @@
 <div class="container bg-light rounded mb-3 mt-3 ">
         <div class="row  ">
             <div class="col-md-4">
-            <img src="img/TA.jpg" alt="Image" class="img-fluid w-50">
+            <!-- <img src="img/TA.jpg" alt="Image" class="img-fluid w-50"> -->
                     <h1>{{ Auth::user()->ten }}</h1>
                     <ul class="list-group list-group-flush">
                      <a href="{{route('taikhoan')}}" style="text-decoration:none"><li class="list-group-item">Thông tin cá nhân</li></a> 

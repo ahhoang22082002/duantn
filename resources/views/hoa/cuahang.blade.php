@@ -17,7 +17,7 @@
 					</div>
 				</div>
 			</div>
-		<!-- End Hero Section -->
+		
 
 		
 
@@ -26,16 +26,21 @@
     <div class="row">
         <div class="col-md-3">
           
-           <h3>Danh mục</h3>
+           <h3 class="mb-2">Danh mục</h3>
             
-            <div class="col-md-6 position-relative">
- 				       <ul class="list-group" id="dropdownMenu" style="position: absolute; top: 100%; left: 0; z-index: 10; ">
- 				         	  <li class="list-group-item" id="selectedItem">Chọn danh mục</li>
-                                @foreach ($dm as $d)
-                                <a href="{{ route('cuahang.danhmuc',['id_dm'=>$d->id_dm])}}" style="text-decoration:none"><li class="list-group-item dropdown-item" style="display: none;">{{$d->ten_dm}} </li></a>
-                                @endforeach
-                            </ul>
- 				     	</div>
+           
+           
+                <ul class="list-group list-group-flush">
+                @foreach ($dm as $d)
+                        <a href="{{ route('cuahang.danhmuc', ['id_dm' => $d->id_dm]) }}" style="text-decoration: none;">
+                            <li class="list-group-item" style=" text-transform: uppercase;">
+                                {{ $d->ten_dm }}
+                            </li>
+                        </a>
+                    @endforeach
+                </ul>
+           
+
                        
         </div>
         <div class="col-md-9">

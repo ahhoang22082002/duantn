@@ -33,7 +33,7 @@ class cartcontroller extends Controller
         Session::put("cart_{$userId}", $cart);
         return redirect()->route('cart');
     }
-    public function updatecart(Request $request) {
+    function updatecart(Request $request) {
         $userId = Auth::id();
         $cart = Session::get("cart_{$userId}", []);
 

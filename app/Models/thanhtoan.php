@@ -10,7 +10,7 @@ class thanhtoan extends Model
 
     protected $table = 'thanhtoan'; 
     protected $primaryKey = 'id_tt'; 
-
+    public $timestamps = false;
     protected $fillable = [
         'trangthaitt',  
     ];

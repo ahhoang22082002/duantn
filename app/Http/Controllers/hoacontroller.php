@@ -42,7 +42,7 @@ class hoacontroller extends Controller
     
 
 
-    public function search(Request $request)
+function search(Request $request)
     {
         $query = $request->input('query');
         $sort = $request->input('sort');

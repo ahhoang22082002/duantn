@@ -29,7 +29,7 @@
     }
     public function thanhtoan()
     {
-        return $this->hasMany(thanhtoan::class, 'id_tt', 'id_tt');
+        return $this->belongsTo(thanhtoan::class, 'id_tt', 'id_tt');
     }
     
     }

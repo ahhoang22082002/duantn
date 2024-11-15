@@ -14,11 +14,19 @@
 								
 								<p class="mb-4">Mong muốn được cung cấp tới khách hàng trải nghiệm sử dụng cũng như các loại hoa mới tốt nhất.</p>
 							
-								<p><a href="{{route('cuahang')}}" class="btn btn-secondary">Mua sắm Ngay</a><a href="{{route('cuahang')}}" class="btn btn-white-outline">Khám phá thêm</a></p>
+								<p><a href="{{route('cuahang')}}" class="btn btn-secondary">Mua sắm Ngay</a><a href="{{route('cuahang')}}" class="btn btn-primary">Khám phá thêm</a></p>
 							</div>
 						</div>
-						
+						<div class="col-lg-7">
+						<div class="d-flex justify-content-end mb-4">
+                     <form action="{{ route('hoa.search') }}" method="GET" id="searchForm" class="input-group" style="max-width: 400px;">
+                         <input type="text" name="query" class="form-control" placeholder="Tìm kiếm hoa">
+                         <button type="submit" class="btn btn-secondary">Tìm kiếm</button>
+                     </form>
+            </div>
+						</div>
 					</div>
+					
 				</div>
 			</div>
 		<!-- End Hero Section -->
@@ -189,7 +197,7 @@
 				</div>
 
 				<div class="row justify-content-center">
-    					<div class="col-lg-4 text-center">
+    					<div class="col-lg-3 text-center">
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
@@ -201,25 +209,36 @@
     					    </div>
     					</div>
 
-    					<div class="col-lg-4 text-center">
+    					<div class="col-lg-3 text-center">
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
     					                <img src="img/person-1.png" alt="Maria Jones" class="img-fluid">
     					            </div>
-    					            <h3 class="font-weight-bold">Maria Jones</h3>
+    					            <h3 class="font-weight-bold">Khẩu Thành Sang</h3>
     					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
     					        </div>
     					    </div>
     					</div>
 
-    					<div class="col-lg-4 text-center">
+    					<div class="col-lg-3 text-center">
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
     					                <img src="img/person-1.png" alt="Maria Jones" class="img-fluid">
     					            </div>
-    					            <h3 class="font-weight-bold">Maria Jones</h3>
+    					            <h3 class="font-weight-bold">Nguyễn Thanh Tuấn</h3>
+    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					        </div>
+    					    </div>
+    					</div>
+						<div class="col-lg-3 text-center">
+    					    <div class="testimonial-block">
+    					        <div class="author-info">
+    					            <div class="author-pic">
+    					                <img src="img/VA.jpg" alt="Maria Jones" class="img-fluid">
+    					            </div>
+    					            <h3 class="font-weight-bold">Nguyễn Vũ Anh</h3>
     					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
     					        </div>
     					    </div>

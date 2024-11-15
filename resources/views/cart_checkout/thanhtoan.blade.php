@@ -94,6 +94,8 @@
 		            </div>
 		          </div>
 				  <div class="row mb-5">
+
+
 		            <div class="col-md-12">
 		              <h2 class="h3 mb-3 text-black">Đơn hàng của bạn</h2>
 					  <form action="{{ route('order.submit') }}" method="POST">
@@ -126,7 +128,7 @@
 						<label for="phuongthuctt">Phương thức thanh toán:</label>
    							 <select name="phuongthuctt" id="phuongthuctt" required>
    							     <option value="cod">Thanh toán khi nhận hàng</option>
-   							     <option value="bank">Thanh toán online</option>
+   							     <option value="bank" >Thanh toán online</option>
 							
    							 </select>
 		                <div class="form-group">
@@ -144,7 +146,7 @@
 
 		        </div>
 		      </div>
-		      <!-- </form> -->
+		     
 		    </div>
 		  </div>
 

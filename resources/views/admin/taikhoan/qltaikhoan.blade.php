@@ -8,8 +8,9 @@
     </script>
     @endif
     <div class="container-fluid">
+        <h1 class="text-primary text-uppercase">Danh sách tài khoản</h1>
         <div class="container">
-            <h1>Thông tin người dùng</h1>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -42,6 +43,7 @@
                     @endforeach
                 </tbody>
             </table>
+          
         </div>
     </div>
 

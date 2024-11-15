@@ -76,5 +76,12 @@ function updateTotal(price, itemId) {
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
+document.getElementById('phuongthuctt').addEventListener('change', function () {
+  var form = document.getElementById('paymentForm');
+  if (this.value === 'bank') {
+      form.action = "{{ route('vnpay') }}";  // Thay 'vnpay' bằng tên route của bạn cho VNPay
+  } else {
+      form.action = "{{ route('order.submit') }}";
+  }
+});
 

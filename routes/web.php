@@ -26,30 +26,22 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'cartadd'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'cartremove'])->name('cart.remove');
     Route::post('/cart/update', [CartController::class, 'updatecart'])->name('cart.update');
-    Route::get('/donhang', [CartController::class, 'orderForm'])->name('order.form');
-    Route::post('/order-submit', [thanhtoancontroller::class, 'submitOrder'])->name('order.submit');
+    Route::post('/order-submit', [thanhtoancontroller::class, 'submitorder'])->name('order.submit');
     Route::get('/thanhtoan',[thanhtoancontroller::class,'showtt'])->name('thanhtoan');
-   
+    Route::get('/payment/return', [thanhtoancontroller::class, 'paymentReturn'])->name('payment.return');
    Route::get('/taikhoan',[Authcontroller::class,'taikhoan'])->name('taikhoan');
    Route::get('/taikhoan/donhang',[Donhangcontroller::class,'donhanguser'])->name('taikhoan.donhang');
    Route::post('/capnhattaikhoan', [Authcontroller::class, 'capnhattaikhoan'])->name('capnhattaikhoan');
-});
-Route::get('/test',[thanhtoancontroller::class,'test'])->name('test');
-Route::get('/cuahang',[hoacontroller::class,'shop'])->name('cuahang');
-Route::get('/cuahang/{id_hoa}',[hoacontroller::class,'chitiethoa'])->name('cuahang.chitiet');
-Route::get('/cuahang/danhmuc/{id_dm}',[hoacontroller::class,'sptheodm'])->name('cuahang.danhmuc');
-Route::get('/search', [hoacontroller::class, 'search'])->name('hoa.search');
-
-
-
-
+   
+   
 Route::get('/ad/qltk',[admincontroller::class,'getuser'])->name('qltk');
 Route::delete('/ad/qltk/delete/{id}', [AdminController::class, 'xoatk'])->name('qltk.delete');
 Route::get('/ad/qltk/phanquyen/{id}', [AdminController::class, 'phanquyen'])->name('qltk.phanquyen');
 Route::post('/ad/qltk/phanquyen/{id}', [AdminController::class, 'doiquyen'])->name('qltk.doiquyen');
 Route::get('/ad/qldh',[admincontroller::class,'showdonhang'])->name('qldh');
 Route::delete('/ad/qldh/delete/{id}', [AdminController::class, 'xoadh'])->name('qldh.delete');
-Route::get('/ad',[admincontroller::class,'dashboard'])->name('ad');
+Route::get('/ad', [AdminController::class, 'dashboard'])->name('ad');
+Route::post('/ad/thongke', [AdminController::class, 'filterStatistics'])->name('ad.sta');
 Route::get('/ad/qlsp',[admincontroller::class,'qlsp'])->name('qlsp');
 Route::get('/ad/qldm',[admincontroller::class,'qldm'])->name('qldm');
 Route::get('/themsp',[admincontroller::class,'themsp'])->name('themsp');
@@ -61,7 +53,20 @@ Route::get('/themdm', [adminController::class, 'themdm'])->name('themdm');
 Route::post('/dmadd', [admincontroller::class, 'dmadd'])->name('dmadd'); 
 Route::get('/dmedit/{id}', [adminController::class, 'dmedit'])->name('dmedit');
 Route::post('/dmupdate/{id}', [admincontroller::class, 'dmupdate'])->name('dmupdate');
-Route::delete('/danh-muc/delete/{id}', [admincontroller::class, 'dmdestroy'])->name('dmdelete');
+Route::delete('/danhmuc/delete/{id}', [admincontroller::class, 'dmdestroy'])->name('dmdelete');
+Route::get('/dhedit/{id}', [admincontroller::class, 'dhedit'])->name('qldh.edit');
+Route::post('/dhupdate/{id}', [admincontroller::class, 'dhupdate'])->name('qldh.update');
+Route::get('/donhang/search', [donhangcontroller::class, 'dhsearch'])->name('qldh.search');
+});
+Route::get('/test',[thanhtoancontroller::class,'test'])->name('test');
+Route::get('/cuahang',[hoacontroller::class,'shop'])->name('cuahang');
+Route::get('/cuahang/{id_hoa}',[hoacontroller::class,'chitiethoa'])->name('cuahang.chitiet');
+Route::get('/cuahang/danhmuc/{id_dm}',[hoacontroller::class,'sptheodm'])->name('cuahang.danhmuc');
+Route::get('/search', [hoacontroller::class, 'search'])->name('hoa.search');
+
+
+
+
 
 
 

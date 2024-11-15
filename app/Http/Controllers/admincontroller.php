@@ -5,16 +5,20 @@ use App\Models\hoa;
 use App\Models\donhang;
 use App\Models\danhmuc;
 use App\Models\nguoidung;
+use App\Models\thanhtoan;
 use Illuminate\Http\Request;
 
 class admincontroller extends Controller
 {
-    function dashboard(){
-        
-        $hoa=hoa::select('id_hoa', 'id_dm', 'tenhoa', 'gia')
-        ->limit(5)
-    ->get();
-    return view('admin.dashboard',  ['hoa' => $hoa]);
+    function dashboard( ){
+        $sales = 0;
+        $tongsanpham = hoa::count();
+        $tongtaikhoan = nguoidung::count();
+        $tongdanhmuc = danhmuc::count();
+        $tongdonhang = donhang::count();
+      
+    
+    return view('admin.dashboard',  compact('tongsanpham','sales','tongtaikhoan','tongdanhmuc','tongdonhang'));
     }
    function qlsp(){
     $hoa = hoa::select('id_hoa', 'id_dm', 'tenhoa', 'gia', 'img')
@@ -136,7 +140,7 @@ function update(Request $request, $id) {
        return redirect()->route('qldm')->with('success', 'Danh mục đã được xóa thành công.');
    }
 function getuser(){
-    $user = nguoidung::all();
+    $user = nguoidung::all();// ->paginate(9);
     return  view('admin.taikhoan.qltaikhoan', compact('user'));
 }
 function xoatk($id){
@@ -175,7 +179,8 @@ function doiquyen(Request $request, $id)
 }
 
 function showdonhang(){
-    $donhang = Donhang::with(['nguoidung', 'donhangct.hoa'])->get();
+    $donhang = Donhang::with(['nguoidung', 'donhangct.hoa'])
+    ->paginate(5);
     return view('admin.donhang.qldonhang',compact('donhang'));
 }
 function xoadh($id){
@@ -188,4 +193,61 @@ function xoadh($id){
             return redirect()->back()->with('error', 'Không tìm thấy tài khoản.');
         }
 }
+function dhedit($id){
+
+        $donhang= donhang::findOrFail($id);
+         
+        return view('admin.donhang.suadh', compact('donhang'));
+    
+}
+function dhupdate(Request $request, $id)
+{
+    $donhang = Donhang::find($id);
+    if ($donhang) {
+        $donhang->trangthai = $request->trangthai;
+        $donhang->id_tt=$request->id_tt;
+        $donhang->save();
+        return redirect()->route('qldh')->with('success', 'Cập nhật thành công.');
+    } else {
+        return redirect()->back()->with('error', 'Không tìm thấy đơn hàng.');
+    }
+}
+
+
+public function filterStatistics(Request $request)
+{
+    $tongsanpham = Hoa::count();
+    $tongtaikhoan = Nguoidung::count();
+    $tongdanhmuc = Danhmuc::count();
+    $tongdonhang = Donhang::count();
+    $sales = 0;
+    // Lọc theo ngày
+    if ($request->has('date') && $request->input('date')) {
+        $date = $request->input('date');
+        $sales = Donhang::whereDate('ngaydat', $date)->sum('tongtien');
+    }
+
+    // Lọc theo tháng
+    elseif ($request->has('month') && $request->input('month')) {
+        $month = $request->input('month');
+        $year = $request->input('year') ?: date('Y');
+        $sales = Donhang::whereMonth('ngaydat', $month)
+                         ->whereYear('ngaydat', $year)
+                         ->sum('tongtien');
+    }
+
+    // Lọc theo năm
+    elseif ($request->has('year') && $request->input('year')) {
+        $year = $request->input('year');
+        $sales = Donhang::whereYear('ngaydat', $year)->sum('tongtien');
+    }
+
+    // Nếu không có bộ lọc, lấy doanh thu tổng
+    else {
+        $sales  = Donhang::sum('tongtien');
+    }
+
+    return view('admin.dashboard', compact('sales','tongsanpham', 'tongtaikhoan', 'tongdanhmuc', 'tongdonhang'));
+}
+
 }

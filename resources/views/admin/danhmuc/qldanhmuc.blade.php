@@ -2,6 +2,7 @@
 
 @section('dashboard')
 <div class="container-fluid">
+<h1 class="text-primary text-uppercase">Danh sách danh mục</h1>
 <div class="card-body">
     <div class="row">
    

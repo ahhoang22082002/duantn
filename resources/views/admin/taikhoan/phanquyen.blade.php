@@ -1,8 +1,11 @@
 @extends('admin.adlayout')
 
 @section('dashboard')
-<div class="container">
-    <h2>Phân quyền cho: {{ $user->ten }}</h2>
+<div class="container-fluid">
+        <div class="container">
+           
+
+    <h1>Phân quyền cho: {{ $user->ten }}</h1>
 
     <form action="{{ route('qltk.doiquyen', $user->id_nguoi) }}" method="POST">
         @csrf
@@ -17,5 +20,6 @@
         </div>
         <button type="submit" class="btn btn-success">Cập nhật</button>
     </form>
+</div>
 </div>
 @endsection
