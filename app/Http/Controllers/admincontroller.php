@@ -5,21 +5,75 @@ use App\Models\hoa;
 use App\Models\donhang;
 use App\Models\danhmuc;
 use App\Models\nguoidung;
-use App\Models\thanhtoan;
+use App\Models\donhangct;
+use App\Models\khuyenmai;
+use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 
 class admincontroller extends Controller
 {
     function dashboard( ){
-        $sales = 0;
+        $sales = donhang::sum('tongtien');
         $tongsanpham = hoa::count();
         $tongtaikhoan = nguoidung::count();
         $tongdanhmuc = danhmuc::count();
         $tongdonhang = donhang::count();
-      
+        $hot = donhangct::select('hoa.id_hoa', 'hoa.tenhoa', 'hoa.gia',DB::raw('SUM(donhangct.soluong) as total_sold'))
+        ->join('hoa', 'donhangct.id_hoa', '=', 'hoa.id_hoa')
+        ->groupBy('hoa.id_hoa', 'hoa.tenhoa', 'hoa.gia')
+        ->orderByDesc('total_sold')
+        ->limit(5)
+        ->get();
+        $month = donhang::whereMonth('ngaydat',date('m'))
+        ->whereYear('ngaydat', date('Y'))   
+        ->sum('tongtien');
+        $weeklySales = [];
+        $daysOfWeek = [''];
+        $startOfWeek = Carbon::now()->startOfWeek();
+
+        for ($i = 0; $i < 7; $i++) {
+            $date = $startOfWeek->copy()->addDays($i);
+            $daysOfWeek = [ 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy','Chủ Nhật'];
+            $weeklySales[] = Donhang::whereDate('ngaydat', $date)->sum('tongtien');
+        }
     
-    return view('admin.dashboard',  compact('tongsanpham','sales','tongtaikhoan','tongdanhmuc','tongdonhang'));
+    return view('admin.dashboard',  compact('tongsanpham','sales','tongtaikhoan','tongdanhmuc','tongdonhang','hot','month','weeklySales', 'daysOfWeek'));
     }
+    function filterStatistics(Request $request)
+{
+    $tongsanpham = Hoa::count();
+    $tongtaikhoan = Nguoidung::count();
+    $tongdanhmuc = Danhmuc::count();
+    $tongdonhang = Donhang::count();
+    $sales = Donhang::sum('tongtien');
+    $month = donhang::whereMonth('ngaydat',date('m'))
+    ->whereYear('ngaydat', date('Y'))   
+    ->sum('tongtien');
+    $hot = donhangct::select('hoa.id_hoa', 'hoa.tenhoa', 'hoa.gia',DB::raw('SUM(donhangct.soluong) as total_sold'))
+        ->join('hoa', 'donhangct.id_hoa', '=', 'hoa.id_hoa')
+        ->groupBy('hoa.id_hoa', 'hoa.tenhoa', 'hoa.gia')
+        ->orderByDesc('total_sold')
+        ->limit(5)
+        ->get();
+    if ($request->has('date') && $request->input('date')) {
+        $date = $request->input('date');
+        $sales = Donhang::whereDate('ngaydat', $date)->sum('tongtien');
+    }
+    else {
+        $sales  = Donhang::sum('tongtien');
+    }
+    $weeklySales = [];
+    $daysOfWeek = [''];
+    $startOfWeek = Carbon::now()->startOfWeek();
+
+    for ($i = 0; $i < 7; $i++) {
+        $date = $startOfWeek->copy()->addDays($i);
+        $daysOfWeek = [ 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy','Chủ Nhật'];
+        $weeklySales[] = Donhang::whereDate('ngaydat', $date)->sum('tongtien');
+    }
+    return view('admin.dashboard', compact('sales','tongsanpham', 'tongtaikhoan', 'tongdanhmuc', 'tongdonhang','hot','month','weeklySales', 'daysOfWeek'));
+}
    function qlsp(){
     $hoa = hoa::select('id_hoa', 'id_dm', 'tenhoa', 'gia', 'img')
     ->orderBy('id_hoa', 'desc')
@@ -56,6 +110,7 @@ class admincontroller extends Controller
     ]);
         return redirect()->route('qlsp')->with('success', 'Sản phẩm đã được thêm thành công.');
     }
+
  function edit($id) {
     $hoa = hoa::findOrFail($id);
     $danhmuc = danhmuc::all(); 
@@ -214,40 +269,35 @@ function dhupdate(Request $request, $id)
 }
 
 
-public function filterStatistics(Request $request)
-{
-    $tongsanpham = Hoa::count();
-    $tongtaikhoan = Nguoidung::count();
-    $tongdanhmuc = Danhmuc::count();
-    $tongdonhang = Donhang::count();
-    $sales = 0;
-    // Lọc theo ngày
-    if ($request->has('date') && $request->input('date')) {
-        $date = $request->input('date');
-        $sales = Donhang::whereDate('ngaydat', $date)->sum('tongtien');
-    }
-
-    // Lọc theo tháng
-    elseif ($request->has('month') && $request->input('month')) {
-        $month = $request->input('month');
-        $year = $request->input('year') ?: date('Y');
-        $sales = Donhang::whereMonth('ngaydat', $month)
-                         ->whereYear('ngaydat', $year)
-                         ->sum('tongtien');
-    }
-
-    // Lọc theo năm
-    elseif ($request->has('year') && $request->input('year')) {
-        $year = $request->input('year');
-        $sales = Donhang::whereYear('ngaydat', $year)->sum('tongtien');
-    }
-
-    // Nếu không có bộ lọc, lấy doanh thu tổng
-    else {
-        $sales  = Donhang::sum('tongtien');
-    }
-
-    return view('admin.dashboard', compact('sales','tongsanpham', 'tongtaikhoan', 'tongdanhmuc', 'tongdonhang'));
+function khuyenmai(){
+    $km=khuyenmai::all();
+    return view('admin.sanpham.khuyenmai',compact('km'));
+}
+function taokm(Request $request){
+    $request->validate([
+        'code' => 'required|unique:khuyenmai,ma_khuyenmai',
+        'discount_value' => 'required|numeric|min:1|max:100',
+        'start_date' => 'required|date|after_or_equal:today',
+        'end_date' => 'required|date|after:start_date',
+    ]);
+    $khuyenMai = KhuyenMai::create([
+        'ma_khuyenmai' => $request->code,
+        'phantramgiam' => $request->discount_value,
+        'ngay_bat_dau' => $request->start_date,
+        'ngay_ket_thuc' => $request->end_date,
+    ]);
+    session()->flash('success', 'Mã giảm giá đã được tạo thành công!');
+    return redirect()->back();
 }
 
+
+
+function destroykm($id)
+   {
+       $km = khuyenmai::findOrFail($id); 
+       $km->delete(); 
+   
+       return redirect()->route('km')->with('success', 'Mã giảm giá đã được xóa thành công.');
+   }
 }
+

@@ -3,7 +3,9 @@
 @section('dashboard')
 <div class="container-fluid">
         <div class="row">
+        <h3 class=" mb-2">Thống kê</h3>
         <div class="col-lg-3">
+       
         <div class="card" style="width: 18rem;">
               <div class="card-body">
                 <h4 class="card-title text-center">Tổng sản phẩm</h4>
@@ -46,62 +48,71 @@
             </div>
         </div>
             <div class="col-lg-8">
-            <form action="{{ route('ad.sta') }}" method="POST">
+            <h3 class=" mb-2">Doanh thu</h3>
+
+            <div class="card chart-container">
+    <canvas id="chart"></canvas>
+  </div>
+          
+           </div>
+           <div class="col-lg-4">
+       
+           <form action="{{ route('ad.sta') }}" method="POST">
             @csrf
-    <div class="row mb-3">
-        <!-- Ngày -->
-        <div class="col-md-4">
-            <label for="date" class="form-label">Ngày</label>
-            <input type="date" class="form-control" id="date" name="date" value="{{ request('date') }}">
-        </div>
+           <div class="row mb-3">
+             
+                   <h4>Xem doanh thu của ngày:</h4>
+                   <input type="date" class="form-control" id="date" name="date" value="{{ request('date') }}">
 
-        <!-- Tháng -->
-        <div class="col-md-4">
-            <label for="month" class="form-label">Tháng</label>
-            <select class="form-select" id="month" name="month">
-                <option value="">Chọn tháng</option>
-                @for($i = 1; $i <= 12; $i++)
-                    <option value="{{ $i }}" {{ request('month') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                @endfor
-            </select>
-        </div>
+           
+             
 
-        <!-- Năm -->
-        <div class="col-md-4">
-            <label for="year" class="form-label">Năm</label>
-            <select class="form-select" id="year" name="year">
-                <option value="">Chọn năm</option>
-                @for($i = 2020; $i <= date('Y'); $i++)
-                    <option value="{{ $i }}" {{ request('year') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                @endfor
-            </select>
-        </div>
-    </div>
+              
+           </div>
 
-    <button type="submit" class="btn btn-primary">Lọc</button>
-</form>
-<div class="mt-4">
-    <h4>Thống kê doanh thu</h4>
-    <p>Doanh thu: <strong>{{ number_format($sales, 0, ',', '.') }} VND</strong></p>
-</div>
-            </div>
-        <div class="col-lg-4">
-          <div class="card">
-            <div class="card-body text-center">
-              <img src="{{asset('admin/assets/images/profile/user-1.jpg')}} " alt="image" class="img-fluid" width="205">
-              <h4 class="mt-7">Tổng tài khoản đã đăng ký:</h4>
-              <p class="card-subtitle mt-2 mb-3">Kiểm tra từng tài khoản nhân viên</p>
-                <button class="btn btn-primary mb-3">Xem Thêm</button>
-            </div>
+          <button type="submit" class="btn btn-primary">Lọc</button>
+      </form>
+          <div class="mt-4">
+              <h4>Thống kê doanh thu</h4>
+              <p>Doanh thu: <strong>{{ number_format($sales, 0, ',', '.') }} VND</strong></p>
           </div>
+           
+             
         </div>
      
+        <div class="col-lg-4">
+      <h3 class="text-center mb-2">Sản phẩm bán chạy</h3>
+      <div class="card">
+              <table class="table">
+
+                <thead class="table-primary">
+                  <tr>
+                    <th scope="col">Hoa</th>
+                    <th scope="col">Danh mục</th>
+                    <th scope="col">Tổng đơn hàng</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                @foreach ($hot as $item)
+                <tr>
+                    <td>{{$item->tenhoa}}</td>
+                    <td>{{$item->hoa->danhmuc->ten_dm}}</td>
+                    <td>{{$item->total_sold}}</td>
+                  </tr>                
+                @endforeach
+
+                </tbody>
+          </table>
+              </div>
+      </div>
+      <div class="col-lg-8">
+      <div class="card chart-container">
+              <canvas id="chart2"></canvas>
+            </div>
+      </div>
      
-        <div class="py-6 px-6 text-center">
-          <p class="mb-0 fs-4">Design and Developed by <a href="https://adminmart.com/" target="_blank"
-              class="pe-1 text-primary text-decoration-underline">AdminMart.com</a>Distributed by <a href="https://themewagon.com/" target="_blank"
-              class="pe-1 text-primary text-decoration-underline">ThemeWagon</a></p>
-        </div>
       </div>
     </div>
+   
 @endsection

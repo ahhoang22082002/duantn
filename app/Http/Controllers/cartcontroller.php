@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-
+use App\Models\khuyenmai;
 class cartcontroller extends Controller
 {
     function cart(){
         $userId = Auth::id();
         $cart = Session::get("cart_{$userId}", []);
-        return view('cart_checkout.cart', compact('cart'));
+        $discount = Session::get("discount_{$userId}", 0); 
+        return view('cart_checkout.cart', compact('cart','discount'));
        
       }
 
@@ -54,6 +55,37 @@ class cartcontroller extends Controller
         Session::put("cart_{$userId}", $cart);
         return redirect()->route('cart');
     }
+    function apdungkm(Request $request)
+    {
+        $request->validate([
+            'coupon_code' => 'required|string|max:255',
+        ]);
+        $userId = Auth::id();
+        $couponCode = $request->coupon_code;
+        
+        
+        
+        $discount = khuyenmai::where('ma_khuyenmai', $couponCode)
+            ->where('ngay_bat_dau', '<=', now())
+            ->where('ngay_ket_thuc', '>=', now())
+            ->first();
 
+        if ($discount) {
+
+            $discountAmount = $discount->phantramgiam;
+            Session::put("discount_{$userId}", $discountAmount);
+            $cart = Session::get("cart_{$userId}", []);
+            $totalAmount = 0;
+            foreach ($cart as $item) {
+                $totalAmount += $item['price'] * $item['quantity'];
+            }
+            $discountedAmount = ($totalAmount * $discountAmount) / 100;
+            $finalAmount = $totalAmount - $discountedAmount;
+            Session::put("final_amount_{$userId}", $finalAmount);
+            return redirect()->route('thanhtoan')->with('success', 'Mã khuyến mãi đã được áp dụng!');
+        } else {
+            return redirect()->route('thanhtoan')->with('error', 'Mã khuyến mãi không hợp lệ!');
+        }
+    }
  
 }

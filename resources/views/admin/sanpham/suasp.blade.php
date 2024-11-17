@@ -33,7 +33,7 @@
             <div class="mb-3">
                 <label class="form-label">Hình ảnh</label>
                 <img src="{{ asset('img/' . $hoa->img) }}" alt="Current Image" class="img-fluid mt-2" style="max-width: 150px;">
-                <input type="file" class="form-control" name="img" accept="image/jpeg,image/png,image/jpg,image/gif" required>
+                <input type="file" class="form-control" name="img" accept="image/jpeg,image/png,image/jpg,image/gif" >
                 </div>
             <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
         </form>

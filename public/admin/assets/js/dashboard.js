@@ -78,5 +78,4 @@ $(function () {
   );
   chart.render();
 
-
 })

@@ -97,38 +97,49 @@
 				</div>
 
 				<div class="row justify-content-center">
-    					<div class="col-lg-4 text-center">
+    					<div class="col-lg-3 text-center">
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
     					                <img src="img/TA.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
-    					            <h3 class="font-weight-bold">Maria Jones</h3>
-    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					            <h3 class="font-weight-bold">Hoàng Công Tuấn Anh</h3>
+    					            <span class="position d-block mb-3">PS25741</span>
     					        </div>
     					    </div>
     					</div>
 
-    					<div class="col-lg-4 text-center">
+    					<div class="col-lg-3 text-center">
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
-    					                <img src="img/person-1.png" alt="Maria Jones" class="img-fluid">
+    					                <img src="img/TS.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
-    					            <h3 class="font-weight-bold">Maria Jones</h3>
-    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					            <h3 class="font-weight-bold">Khẩu Thành Sang</h3>
+    					            <span class="position d-block mb-3">PS25741</span>
     					        </div>
     					    </div>
     					</div>
 
-    					<div class="col-lg-4 text-center">
+    					<div class="col-lg-3 text-center">
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
-    					                <img src="img/person-1.png" alt="Maria Jones" class="img-fluid">
+    					                <img src="img/TT.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
-    					            <h3 class="font-weight-bold">Maria Jones</h3>
-    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					            <h3 class="font-weight-bold">Nguyễn Thanh Tuấn</h3>
+    					            <span class="position d-block mb-3">PS25741</span>
+    					        </div>
+    					    </div>
+    					</div>
+						<div class="col-lg-3 text-center">
+    					    <div class="testimonial-block">
+    					        <div class="author-info">
+    					            <div class="author-pic">
+    					                <img src="img/VA.jpg" alt="Maria Jones" class="img-fluid">
+    					            </div>
+    					            <h3 class="font-weight-bold">Nguyễn Vũ Anh</h3>
+    					            <span class="position d-block mb-3">PS25741.</span>
     					        </div>
     					    </div>
     					</div>

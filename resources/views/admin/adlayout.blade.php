@@ -4,11 +4,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SeoDash Free Bootstrap Admin Template by Adminmart</title>
+  <title>Admin Thiên Lý shop</title>
   <link rel="shortcut icon" type="image/png" href="{{asset('/assets/images/logos/seodashlogo.png')}}" />
   <link rel="stylesheet" href="{{ asset('admin/assets/css/styles.min.css') }}" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
+  <style>
+ 
+</style>
 </head>
 
 <body>
@@ -20,9 +24,10 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="public/admin/assets/images/logos/logo-light.svg" alt="" />
-          </a>
+          
+          <img src="{{asset('img/logo.png')}}" style="max-width:70px;max-height:70px" alt="">
+
+         
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
           </div>
@@ -46,7 +51,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{route('qlsp')}}" aria-expanded="false">
                 <span>
-                  <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                <iconify-icon icon="mdi:flower"></iconify-icon>
                 </span>
                 <span class="hide-menu">Quản lí sản phẩm</span>
               </a>
@@ -54,7 +59,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{route('qldm')}}" aria-expanded="false">
                 <span>
-                  <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                <iconify-icon icon="tdesign:catalog"></iconify-icon>
                 </span>
                 <span class="hide-menu">Quản lí danh mục</span>
               </a>
@@ -62,7 +67,7 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{route('qldh')}}" aria-expanded="false">
                 <span>
-                  <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                <iconify-icon icon="solar:bag-bold"></iconify-icon>
                 </span>
                 <span class="hide-menu">Quản lí đơn hàng</span>
               </a>
@@ -70,15 +75,15 @@
             <li class="sidebar-item">
               <a class="sidebar-link" href="{{route('qltk')}}" aria-expanded="false">
                 <span>
-                  <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                <iconify-icon icon="mdi:user"></iconify-icon>
                 </span>
                 <span class="hide-menu">Quản lí tài khoản</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{route('qldh')}}" aria-expanded="false">
+              <a class="sidebar-link" href="{{route('km')}}" aria-expanded="false">
                 <span>
-                  <iconify-icon icon="solar:layers-minimalistic-bold-duotone" class="fs-6"></iconify-icon>
+                <iconify-icon icon="mdi:hot"></iconify-icon>
                 </span>
                 <span class="hide-menu">Mã khuyến mãi</span>
               </a>
@@ -121,7 +126,7 @@
             <li class="nav-item">
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
-                    <button type="submit" class="btn btn-link nav-link" style="padding: 0; margin-left: 5px;">Đăng xuất</button>
+                    <button type="submit" class=" nav-link" style="padding: 0; margin-left: 5px;">Đăng xuất</button>
                 </form>
             </li>
         @else
@@ -146,7 +151,66 @@
   <script src="{{asset('admin/assets/js/dashboard.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+  <script>
+    @if(isset($daysOfWeek) && isset($weeklySales))
+      const ctx = document.getElementById("chart").getContext('2d');
+      const daysOfWeek = @json($daysOfWeek); 
+      const weeklySales =  @json($weeklySales); 
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels:daysOfWeek,
+          datasets: [{
+            label: 'Doanh thu theo tuần',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: weeklySales ,
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          }
+        },
+      });
+      @endif
+      @if(isset($hot))
+      const ctx2 = document.getElementById("chart2").getContext('2d');
+      const productNames = @json($hot->pluck('tenhoa'));
+      const productSales = @json($hot->pluck('total_sold')); 
+      const myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: productNames,
+          datasets: [{
+            label: 'Top 5 sản phẩm bán chạy',
+            backgroundColor: 'rgba(161, 198, 247, 1)',
+            borderColor: 'rgb(47, 128, 237)',
+            data: productSales ,
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+              }
+            }]
+          }
+        },
+      });
+      @endif
+</script>
 
-</body>
+
+  </body>
 
 </html>

@@ -12,7 +12,10 @@ class khuyenmai extends Model
     protected $primaryKey = 'id_km';
 
     protected $fillable = [
+        'ma_khuyenmai',
         'phantramgiam',
+        'ngay_bat_dau',
+        'ngay_ket_thuc',
     ];
    
    

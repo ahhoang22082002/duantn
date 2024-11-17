@@ -14,7 +14,7 @@ use App\Http\Controllers\AuthController;
 
 
 // Route::get('/')
-Route::get('/',[homecontroller::class,'spmoi'])->name('trangchu');
+Route::get('/',[homecontroller::class,'sp'])->name('trangchu');
 Route::get('/baiviet',[homecontroller::class,'baiviet'])->name('baiviet');
 Route::get('/lienhe',[homecontroller::class,'lienhe'])->name('lienhe');
 Route::get('/gioithieu',[homecontroller::class,'gioithieu'])->name('gioithieu');
@@ -26,12 +26,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'cartadd'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'cartremove'])->name('cart.remove');
     Route::post('/cart/update', [CartController::class, 'updatecart'])->name('cart.update');
+    Route::post('/cart/km', [CartController::class, 'apdungkm'])->name('cart.khuyenmai');
     Route::post('/order-submit', [thanhtoancontroller::class, 'submitorder'])->name('order.submit');
     Route::get('/thanhtoan',[thanhtoancontroller::class,'showtt'])->name('thanhtoan');
     Route::get('/payment/return', [thanhtoancontroller::class, 'paymentReturn'])->name('payment.return');
    Route::get('/taikhoan',[Authcontroller::class,'taikhoan'])->name('taikhoan');
    Route::get('/taikhoan/donhang',[Donhangcontroller::class,'donhanguser'])->name('taikhoan.donhang');
    Route::post('/capnhattaikhoan', [Authcontroller::class, 'capnhattaikhoan'])->name('capnhattaikhoan');
+
    
    
 Route::get('/ad/qltk',[admincontroller::class,'getuser'])->name('qltk');
@@ -43,6 +45,9 @@ Route::delete('/ad/qldh/delete/{id}', [AdminController::class, 'xoadh'])->name('
 Route::get('/ad', [AdminController::class, 'dashboard'])->name('ad');
 Route::post('/ad/thongke', [AdminController::class, 'filterStatistics'])->name('ad.sta');
 Route::get('/ad/qlsp',[admincontroller::class,'qlsp'])->name('qlsp');
+Route::get('/ad/km',[admincontroller::class,'khuyenmai'])->name('km');
+Route::post('/ad/taokm',[admincontroller::class,'taokm'])->name('taokm');
+Route::delete('/deletekm/{id}', [admincontroller::class, 'destroykm'])->name('km.delete');
 Route::get('/ad/qldm',[admincontroller::class,'qldm'])->name('qldm');
 Route::get('/themsp',[admincontroller::class,'themsp'])->name('themsp');
 Route::post('/add', [admincontroller::class, 'add'])->name('add'); 

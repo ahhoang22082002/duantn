@@ -26,7 +26,7 @@
 		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
 			<div class="container">
-				<a class="navbar-brand" href="index.html">LOGO<span>.</span></a>
+				<img src="{{asset('img/logo.png')}}" style="max-width:70px;max-height:70px" alt="">
 
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -109,7 +109,7 @@
 
 				<div class="row g-5 mb-5">
 					<div class="col-lg-4">
-						<div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+					<img src="{{asset('img/logo.png')}}" style="max-width:70px;max-height:70px" alt="">
 						<p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant</p>
 
 						<ul class="list-unstyled custom-social">
@@ -186,6 +186,7 @@
 		<script src="{{asset('/js/tiny-slider.js')}}"></script>
 		<script src="{{asset('/js/custom.js')}}"></script>
 		<script src = "{{asset('/js/detail.js')}}"></script>
+	
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 	</body>

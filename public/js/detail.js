@@ -4,14 +4,19 @@ document.addEventListener('DOMContentLoaded', function () {
   const dropdownItems = document.querySelectorAll('.dropdown-item');
 
  
+  // selectedItem.addEventListener('click', function () {
+  //   dropdownItems.forEach(item => {
+
+  //     item.style.display = item.style.display === 'none' ? 'block' : 'none';
+  //   });
+  // });
+
   selectedItem.addEventListener('click', function () {
     dropdownItems.forEach(item => {
-   
-      item.style.display = item.style.display === 'none' ? 'block' : 'none';
+      item.style.display = (item.style.display === 'none' || item.style.display === '') ? 'block' : 'none';
     });
   });
-
- 
+  
   dropdownItems.forEach(item => {
     item.addEventListener('click', function () {
       selectedItem.textContent = this.textContent; 
@@ -79,7 +84,7 @@ function numberWithCommas(x) {
 document.getElementById('phuongthuctt').addEventListener('change', function () {
   var form = document.getElementById('paymentForm');
   if (this.value === 'bank') {
-      form.action = "{{ route('vnpay') }}";  // Thay 'vnpay' bằng tên route của bạn cho VNPay
+      form.action = "{{ route('vnpay') }}";  
   } else {
       form.action = "{{ route('order.submit') }}";
   }

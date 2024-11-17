@@ -82,14 +82,17 @@
 		              <h2 class="h3 mb-3 text-black">Mã giảm giá</h2>
 		              <div class="p-3 p-lg-5 border bg-white">
 
-		                <label for="c_code" class="text-black mb-3">Nhập mã giảm giá nếu có</label>
-		                <div class="input-group w-75 couponcode-wrap">
-		                  <input type="text" class="form-control me-2" id="c_code" placeholder="ABCXYZ" aria-label="Coupon Code" aria-describedby="button-addon2">
-		                  <div class="input-group-append">
-		                    <button class="btn btn-primary" type="button" id="button-addon2">Áp dụng</button>
-		                  </div>
-		                </div>
-
+					  <form action="{{ route('cart.khuyenmai') }}" method="POST">
+                        @csrf
+                        <label for="c_code" class="text-black mb-3">Nhập mã giảm giá nếu có</label>
+                        <div class="input-group w-75 couponcode-wrap">
+                            <input type="text" class="form-control me-2" name="coupon_code" id="c_code" placeholder="ABCXYZ" aria-label="Coupon Code" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit" id="button-addon2">Áp dụng</button>
+                            </div>
+                        </div>
+                    </form>
+					
 		              </div>
 		            </div>
 		          </div>
@@ -106,6 +109,7 @@
 		                <table class="table site-block-order-table mb-5">
 		                  <thead>
 		                    <th>Sản phẩm của bạn</th>
+							<th>Giá</th>
 							<th>Số lượng</th>
 		                    <th>Tổng</th>
 		                  </thead>
@@ -121,8 +125,9 @@
 
 								<tr>
 		                      <td class="text-black font-weight-bold"><strong>Tổng tiền: </strong></td>
-		                      <td class="text-black font-weight-bold"><strong>{{ number_format($totalamount) }} VNĐ</strong></td>
+		                      <td class="text-black font-weight-bold"><strong> {{ number_format(Session::get("final_amount_" . Auth::id(), $totalamount)) }}  VNĐ</strong></td>
 		                    </tr>
+						
 		                  </tbody>
 		                </table>
 						<label for="phuongthuctt">Phương thức thanh toán:</label>

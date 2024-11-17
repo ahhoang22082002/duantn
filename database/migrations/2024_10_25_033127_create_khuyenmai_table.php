@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('khuyenmai', function (Blueprint $table) {
             $table->increments('id_km'); 
+            $table->string('ma_khuyenmai')->unique(); 
             $table->tinyInteger('phantramgiam');
+            $table->date('ngay_bat_dau'); 
+            $table->date('ngay_ket_thuc');
             $table->timestamps();
         });
     }

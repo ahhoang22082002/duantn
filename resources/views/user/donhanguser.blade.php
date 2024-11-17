@@ -10,7 +10,7 @@
                     <ul class="list-group list-group-flush">
                      <a href="{{route('taikhoan')}}" style="text-decoration:none"><li class="list-group-item">Thông tin cá nhân</li></a> 
                       <a href="{{route('taikhoan.donhang')}}" style="text-decoration:none"><li class="list-group-item">Đơn hàng</li></a>
-                      <a href="" style="text-decoration:none"><li class="list-group-item">Lịch sử thanh toán</li></a>
+
                     </ul>
             </div>
             <div class="col-md-8">
@@ -24,6 +24,7 @@
                             <th>Ngày đặt</th>
                             <th>Trạng thái</th>
                             <th>Phương thức thanh toán</th>
+                            <th>Trạng thái thanh toán</th>
                             <th>Tổng tiền</th>
                         </tr>
                     </thead>
@@ -37,6 +38,7 @@
                                     <td>{{ $item->ngaydat }}</td>
                                     <td>{{ $item->trangthai }}</td>
                                     <td>{{ $item->phuongthuctt }}</td>
+                                    <td>{{ $item->thanhtoan->trangthaitt }}</td>
                                     <td>{{ number_format($item->tongtien, 0, ',', '.') }} VNĐ</td>
                                 </tr>
                             @endforeach

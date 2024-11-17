@@ -16,11 +16,11 @@
                     <ul class="list-group list-group-flush">
                      <a href="{{route('taikhoan')}}" style="text-decoration:none"><li class="list-group-item">Thông tin cá nhân</li></a> 
                       <a href="{{route('taikhoan.donhang')}}" style="text-decoration:none"><li class="list-group-item">Đơn hàng</li></a>
-                      <a href="" style="text-decoration:none"><li class="list-group-item">Lịch sử thanh toán</li></a>
+                  
                     </ul>
             </div>
             <div class="col-md-8">
-            <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
+            <h2 class="h3 mb-3 text-black">Thay đổi thông tin</h2>
 
             <div class="p-3 p-lg-5 border bg-white">
             <form method="POST" action="{{ route('capnhattaikhoan') }}">

@@ -35,21 +35,19 @@
 		<div class="product-section">
 			<div class="container">
 				<div class="row">
-
+				
 					<!-- Start Column 1 -->
 					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
 						<h2 class="mb-4 section-title">Sản phẩm mới.</h2>
 						<p class="mb-4">Khám phá những sản phẩm mới nhất của chúng tôi. </p>
 						<p><a href="{{route('cuahang')}}" class="btn btn-primary">Mua sắm ngay</a></p>
 					</div> 
-					
-					
 					@foreach($hoa as $h)
 						 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
 						<a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $h->id_hoa]) }}">
 							<img src=" img/{{$h->img}}" class="img-fluid product-thumbnail">
 							<h3 class="product-title">{{$h->tenhoa}}</h3>
-							<strong class="product-price">{{$h->gia}}</strong>
+							<strong class="product-price">{{number_format($h->gia)}} VNĐ</strong>
 
 							<span class="icon-cross">
 								<img src="img/cross.svg" class="img-fluid">
@@ -58,6 +56,8 @@
 					</div> 
 					
 					@endforeach
+					
+		
 					
 					<!-- Start Column 2 -->
 					
@@ -68,7 +68,41 @@
 			</div>
 		</div>
 		<!-- End Product Section -->
+		<div class="product-section">
+			<div class="container">
+				<div class="row">
+				@foreach($sale as $s)
+						 <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+						<a class="product-item" href="{{ route('cuahang.chitiet', ['id_hoa' => $s->id_hoa]) }}">
+							<img src=" img/{{$s->img}}" class="img-fluid product-thumbnail">
+							<h3 class="product-title">{{$s->tenhoa}}</h3>
+							<strong class="product-price">{{number_format($s->gia,0)}} VNĐ</strong>
 
+							<span class="icon-cross">
+								<img src="img/cross.svg" class="img-fluid">
+							</span>
+						</a>
+					</div> 
+					
+					@endforeach
+					<!-- Start Column 1 -->
+					<div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+						<h2 class="mb-4 section-title">Top 3 sản phẩm bán chạy</h2>
+						<p class="mb-4">Hoa với số lượt mua cao nhất </p>
+						<p><a href="{{route('cuahang')}}" class="btn btn-primary">Mua sắm ngay</a></p>
+					</div> 
+				
+					
+		
+					
+					<!-- Start Column 2 -->
+					
+					<!-- End Column 2 -->
+
+				
+				</div>
+			</div>
+		</div>
 		<!-- Start Why Choose Us Section -->
 		<div class="why-choose-section">
 			<div class="container">
@@ -204,7 +238,7 @@
     					                <img src="img/TA.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
     					            <h3 class="font-weight-bold">Hoàng Công Tuấn Anh</h3>
-    					            <span class="position d-block mb-3">Backend Intern</span>
+    					            <span class="position d-block mb-3">PS25741</span>
     					        </div>
     					    </div>
     					</div>
@@ -213,10 +247,10 @@
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
-    					                <img src="img/person-1.png" alt="Maria Jones" class="img-fluid">
+    					                <img src="img/TS.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
     					            <h3 class="font-weight-bold">Khẩu Thành Sang</h3>
-    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					            <span class="position d-block mb-3">PS25741</span>
     					        </div>
     					    </div>
     					</div>
@@ -225,10 +259,10 @@
     					    <div class="testimonial-block">
     					        <div class="author-info">
     					            <div class="author-pic">
-    					                <img src="img/person-1.png" alt="Maria Jones" class="img-fluid">
+    					                <img src="img/TT.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
     					            <h3 class="font-weight-bold">Nguyễn Thanh Tuấn</h3>
-    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					            <span class="position d-block mb-3">PS25741</span>
     					        </div>
     					    </div>
     					</div>
@@ -239,7 +273,7 @@
     					                <img src="img/VA.jpg" alt="Maria Jones" class="img-fluid">
     					            </div>
     					            <h3 class="font-weight-bold">Nguyễn Vũ Anh</h3>
-    					            <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+    					            <span class="position d-block mb-3">PS25741.</span>
     					        </div>
     					    </div>
     					</div>
@@ -250,7 +284,7 @@
 		<!-- End Testimonial Slider -->
 
 		<!-- Start Blog Section -->
-		<div class="blog-section">
+		<!-- <div class="blog-section">
 			<div class="container">
 				<div class="row mb-5">
 					<div class="col-md-6">
@@ -301,6 +335,6 @@
 
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 @endsection
