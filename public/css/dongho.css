@@ -1,0 +1,29 @@
+.countdown {
+	font-size: 1rem; /* Kích thước chữ vừa phải */
+	background-color: #f8f9fa; /* Màu nền nhạt */
+	padding: 5px 10px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	display: inline-block;
+}
+#timer span {
+	font-weight: bold;
+	color: #333;
+}
+
+.more {
+	font-size: 1rem;
+	font-weight: bold;
+	color: #007bff;
+	text-decoration: none;
+}
+
+.more:hover {
+	text-decoration: underline;
+}
+
+.blog-section .row.mb-5 {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
