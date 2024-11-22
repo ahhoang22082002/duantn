@@ -22,24 +22,11 @@
 		      <div class="row">
 			  <div class="row mb-5">
 		            <div class="col-md-12">
-		              <h2 class="h3 mb-3 text-black">Mã giảm giá</h2>
+		              
 		              <div class="p-3 p-lg-5 border bg-white">
-
-					  <form action="{{ route('cart.khuyenmai') }}" method="POST">
-                        @csrf
-                        <label for="c_code" class="text-black mb-3">Nhập mã giảm giá nếu có</label>
-                        <div class="input-group w-75 couponcode-wrap">
-                            <input type="text" class="form-control me-2" name="coupon_code" id="c_code" placeholder="ABCXYZ" aria-label="Coupon Code" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" id="button-addon2">Áp dụng</button>
-                            </div>
-                        </div>
-                    </form>
-					@if(session('success'))
-					    <div class="alert alert-success">
-					        {{ session('success') }}
-					    </div>
-					@endif
+                      <h2 class="h3 mb-3 text-black">Đăng nhập để áp dụng mã giảm giá và theo dõi tình trạng đơn hàng</h2>
+					  
+					
 		              </div>
 		            </div>
 		          </div>
@@ -47,25 +34,25 @@
 				    <h2 class="h3 mb-3 text-black">Thông tin khách hàng</h2>
 				    <div class="p-3 p-lg-5 border bg-white">
 									
-					<form action="{{ route('order.submit') }}" method="POST">
+					<form action="{{ route('cusorder.submit') }}" method="POST">
 					@csrf
 					<div class="form-group">
 					    <label for="user_name" class="text-black">Tên người dùng</label>
-					    <input type="text" id="user_name" class="form-control" name="ten" value="{{ Auth::user()->ten }}" required>
+					    <input type="text" id="user_name" class="form-control" name="ten"  required>
 					</div>
 					
 					<div class="form-group">
 					    <label for="user_address" class="text-black">Địa chỉ</label>
-					    <input type="text" id="user_address" class="form-control" name="diachi" value="{{ Auth::user()->diachi }}" required>
+					    <input type="text" id="user_address" class="form-control" name="diachi"  required>
 					</div>
 					<div class="form-group row">
 					    <div class="col-md-6">
 					        <label for="user_email" class="text-black">Email</label>
-					        <input type="email" id="user_email" class="form-control" name="email" value="{{ Auth::user()->email }}" required>
+					        <input type="email" id="user_email" class="form-control" name="email"  required>
 					    </div>
 					    <div class="col-md-6">
 					        <label for="user_phone" class="text-black">Số điện thoại</label>
-					        <input type="text" id="user_phone" class="form-control" name="sdt" value="{{ Auth::user()->sdt }}" required>
+					        <input type="text" id="user_phone" class="form-control" name="sdt" required>
 					    </div>
 					</div>
 

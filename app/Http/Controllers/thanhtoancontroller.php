@@ -19,88 +19,177 @@ class thanhtoancontroller extends Controller
         $totalamount = array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0);
         return view('cart_checkout.thanhtoan', compact('user', 'cart', 'totalamount'));
     }
+    function cus_showtt(){
+        $user = Auth::user();
+        $userId = Auth::id();
+        $cart = Session::get("cart_{$userId}", []);
+        $totalamount = array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0);
+        return view('cart_checkout.custhanhtoan', compact('user', 'cart', 'totalamount'));
+    }
   function test(){
     $orders = donhang::where('id_nguoi', Auth::id())->first();
     Mail::to(Auth::user()->email)->send(new XacNhan($orders));
   }
-  function submitorder(Request $request)
-{
-    $userId = Auth::id();
-    $cart = Session::get("cart_{$userId}", []);
-    $total = Session::get("final_amount_{$userId}", array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0));
-    $phuongThucTT = $request->phuongthuctt === 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán online';
-    if (empty($cart)) {
-        return redirect()->route('cart')->with('error', 'Giỏ hàng của bạn đang trống, không thể thanh toán.');
-    }
+    function submitorder(Request $request)
+    {
+        $userId = Auth::id();
+        $cart = Session::get("cart_{$userId}", []);
+        $total = Session::get("final_amount_{$userId}", array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0));
+        $phuongThucTT = $request->phuongthuctt === 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán online';
+        if (empty($cart)) {
+            return redirect()->route('cart')->with('error', 'Giỏ hàng của bạn đang trống, không thể thanh toán.');
+        }
 
-    \DB::beginTransaction();
-    try {
-        $order = donhang::create([
-            'id_nguoi' => $userId,
-            'ten' => Auth::user()->ten,
-            'ngaydat' => now(),
-            'trangthai' => 'Đã đặt hàng',
-            'phuongthuctt' => $phuongThucTT,
-            'tongtien' => $total,
-        ]);
-        foreach ($cart as $item) {
-            donhangct::create([
-                'id_donhang' => $order->id_donhang,
-                'id_hoa' => $item['id'],
-                'soluong' => $item['quantity'],
-                'gia' => $item['price'],
+        \DB::beginTransaction();
+        try {
+            $order = donhang::create([
+                'id_nguoi' => $userId,
+                'ten' => $request->ten,
+                'email' => $request->email,
+                'diachi' => $request->diachi,
+                'sdt' => $request->sdt,
+                'ngaydat' => now(),
+                'trangthai' => 'Đã đặt hàng',
+                'phuongthuctt' => $phuongThucTT,
+                'tongtien' => $total,
             ]);
-        }
-
-        \DB::commit();
-        if ($phuongThucTT === 'Thanh toán khi nhận hàng') {
-            Mail::to(Auth::user()->email)->send(new XacNhan($order));
-            Session::forget("cart_{$userId}");
-            return redirect()->route('cart')->with('success', 'Đặt hàng thành công!');
-        } 
-        else {
-            $vnpUrl = config('services.vnpay.url');
-            $vnpTmnCode = config('services.vnpay.tmn_code');
-            $vnpHashSecret = config('services.vnpay.hash_secret');
-            $vnpOrderInfo = "Thanh toán đơn hàng";
-            $vnpAmount = $total * 100; 
-            $vnpTxnRef = $order->id_donhang;
-            $vnpIpAddr = request()->ip();
-
-            $inputData = [
-                "vnp_Version" => "2.1.0",
-                "vnp_TmnCode" => $vnpTmnCode,
-                "vnp_Amount" => $vnpAmount,
-                "vnp_Command" => "pay",
-                "vnp_CreateDate" => date('YmdHis'),
-                "vnp_CurrCode" => "VND",
-                "vnp_IpAddr" => $vnpIpAddr,
-                "vnp_Locale" => "vn",
-                "vnp_OrderInfo" => $vnpOrderInfo,
-                "vnp_OrderType" => "other",
-                "vnp_ReturnUrl" => route('payment.return'),
-                "vnp_TxnRef" => $vnpTxnRef,
-            ];
-            // dd($request->all());
-            ksort($inputData);
-            $hashData = "";
-            foreach ($inputData as $key => $value) {
-                $hashData .= urldecode($key) . "=" . urldecode($value) . '&';
+            foreach ($cart as $item) {
+                donhangct::create([
+                    'id_donhang' => $order->id_donhang,
+                    'id_hoa' => $item['id'],
+                    'soluong' => $item['quantity'],
+                    'gia' => $item['price'],
+                ]);
             }
-            $hashData = rtrim($hashData, '&');
-            $vnpSecureHash = hash_hmac('sha512', $hashData, $vnpHashSecret);
-            $vnpUrl = $vnpUrl . "?" . $hashData . "&vnp_SecureHash=" . $vnpSecureHash;
-            // Session::forget("cart_{$userId}");
-            return redirect()->away($vnpUrl);
+
+            \DB::commit();
+            if ($phuongThucTT === 'Thanh toán khi nhận hàng') {
+                Mail::to(Auth::user()->email)->send(new XacNhan($order));
+                Session::forget("cart_{$userId}");
+                return redirect()->route('cart')->with('success', 'Đặt hàng thành công!');
+            } 
+            else {
+                $vnpUrl = config('services.vnpay.url');
+                $vnpTmnCode = config('services.vnpay.tmn_code');
+                $vnpHashSecret = config('services.vnpay.hash_secret');
+                $vnpOrderInfo = "Thanh toán đơn hàng";
+                $vnpAmount = $total * 100; 
+                $vnpTxnRef = $order->id_donhang;
+                $vnpIpAddr = request()->ip();
+
+                $inputData = [
+                    "vnp_Version" => "2.1.0",
+                    "vnp_TmnCode" => $vnpTmnCode,
+                    "vnp_Amount" => $vnpAmount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnpIpAddr,
+                    "vnp_Locale" => "vn",
+                    "vnp_OrderInfo" => $vnpOrderInfo,
+                    "vnp_OrderType" => "other",
+                    "vnp_ReturnUrl" => route('payment.return'),
+                    "vnp_TxnRef" => $vnpTxnRef,
+                ];
+                // dd($request->all());
+                ksort($inputData);
+                $hashData = "";
+                foreach ($inputData as $key => $value) {
+                    $hashData .= urldecode($key) . "=" . urldecode($value) . '&';
+                }
+                $hashData = rtrim($hashData, '&');
+                $vnpSecureHash = hash_hmac('sha512', $hashData, $vnpHashSecret);
+                $vnpUrl = $vnpUrl . "?" . $hashData . "&vnp_SecureHash=" . $vnpSecureHash;
+                // Session::forget("cart_{$userId}");
+                return redirect()->away($vnpUrl);
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error('Error during order submission: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
+        }
+    }
+    function cus_submitorder(Request $request)
+    {
+        $userId = Auth::id();
+        $cart = Session::get("cart_{$userId}", []);
+        $total = Session::get("final_amount_{$userId}", array_reduce($cart, fn($carry, $item) => $carry + ($item['price'] * $item['quantity']), 0));
+        $phuongThucTT = $request->phuongthuctt === 'cod' ? 'Thanh toán khi nhận hàng' : 'Thanh toán online';
+        if (empty($cart)) {
+            return redirect()->route('cart')->with('error', 'Giỏ hàng của bạn đang trống, không thể thanh toán.');
         }
 
-    } catch (\Exception $e) {
-        \DB::rollback();
-        \Log::error('Error during order submission: ' . $e->getMessage());
-        return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
-    }
-}
+        \DB::beginTransaction();
+        try {
+            $order = donhang::create([
+                'id_nguoi' => Auth::id() ?: null,
+                'ten' => $request->ten,
+                'email' => $request->email,
+                'diachi' => $request->diachi,
+                'sdt' => $request->sdt,
+                'ngaydat' => now(),
+                'trangthai' => 'Đã đặt hàng',
+                'phuongthuctt' => $phuongThucTT,
+                'tongtien' => $total,
+            ]);
+            foreach ($cart as $item) {
+                donhangct::create([
+                    'id_donhang' => $order->id_donhang,
+                    'id_hoa' => $item['id'],
+                    'soluong' => $item['quantity'],
+                    'gia' => $item['price'],
+                ]);
+            }
 
+            \DB::commit();
+            if ($phuongThucTT === 'Thanh toán khi nhận hàng') {
+                Mail::to($request->email)->send(new XacNhan($order));
+                Session::forget("cart_{$userId}");
+                return redirect()->route('cart')->with('success', 'Đặt hàng thành công!');
+            } 
+            else {
+                $vnpUrl = config('services.vnpay.url');
+                $vnpTmnCode = config('services.vnpay.tmn_code');
+                $vnpHashSecret = config('services.vnpay.hash_secret');
+                $vnpOrderInfo = "Thanh toán đơn hàng";
+                $vnpAmount = $total * 100; 
+                $vnpTxnRef = $order->id_donhang;
+                $vnpIpAddr = request()->ip();
+
+                $inputData = [
+                    "vnp_Version" => "2.1.0",
+                    "vnp_TmnCode" => $vnpTmnCode,
+                    "vnp_Amount" => $vnpAmount,
+                    "vnp_Command" => "pay",
+                    "vnp_CreateDate" => date('YmdHis'),
+                    "vnp_CurrCode" => "VND",
+                    "vnp_IpAddr" => $vnpIpAddr,
+                    "vnp_Locale" => "vn",
+                    "vnp_OrderInfo" => $vnpOrderInfo,
+                    "vnp_OrderType" => "other",
+                    "vnp_ReturnUrl" => route('payment.return'),
+                    "vnp_TxnRef" => $vnpTxnRef,
+                ];
+                // dd($request->all());
+                ksort($inputData);
+                $hashData = "";
+                foreach ($inputData as $key => $value) {
+                    $hashData .= urldecode($key) . "=" . urldecode($value) . '&';
+                }
+                $hashData = rtrim($hashData, '&');
+                $vnpSecureHash = hash_hmac('sha512', $hashData, $vnpHashSecret);
+                $vnpUrl = $vnpUrl . "?" . $hashData . "&vnp_SecureHash=" . $vnpSecureHash;
+                // Session::forget("cart_{$userId}");
+                return redirect()->away($vnpUrl);
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollback();
+            \Log::error('Error during order submission: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra trong quá trình thanh toán.');
+        }
+    }
  function paymentReturn(Request $request)
   {
       $vnp_HashSecret = config('services.vnpay.hash_secret');

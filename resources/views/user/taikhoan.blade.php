@@ -10,17 +10,18 @@
 @endif
     <div class="container bg-light rounded mb-3 mt-3 ">
         <div class="row  ">
-            <div class="col-md-4">
+            <div class="col-md-2">
             <!-- <img src="img/TA.jpg" alt="Image" class="img-fluid w-50"> -->
-                    <h1>{{ Auth::user()->ten }}</h1>
+                    <h3>{{ Auth::user()->ten }}</h3>
                     <ul class="list-group list-group-flush">
                      <a href="{{route('taikhoan')}}" style="text-decoration:none"><li class="list-group-item">Thông tin cá nhân</li></a> 
                       <a href="{{route('taikhoan.donhang')}}" style="text-decoration:none"><li class="list-group-item">Đơn hàng</li></a>
                   
                     </ul>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
             <h2 class="h3 mb-3 text-black">Thay đổi thông tin</h2>
+           
 
             <div class="p-3 p-lg-5 border bg-white">
             <form method="POST" action="{{ route('capnhattaikhoan') }}">

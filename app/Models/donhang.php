@@ -14,6 +14,9 @@
         protected $fillable = [
             'id_nguoi',
             'ten',
+            'email',
+            'diachi',
+            'sdt',
             'ngaydat',
             'trangthai',
             'phuongthuctt',

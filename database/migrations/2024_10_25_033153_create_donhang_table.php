@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('donhang', function (Blueprint $table) {
             $table->increments('id_donhang'); 
-            $table->unsignedInteger('id_nguoi');
+            $table->unsignedInteger('id_nguoi') ->nullable();;
             $table->unsignedInteger('id_tt');
             $table->string('ten');
+            $table->string('name');
+            $table->string('email');
+            $table->string('address');
             $table->date('ngaydat'); 
             $table->string('trangthai'); 
             $table->string('phuongthuctt'); 

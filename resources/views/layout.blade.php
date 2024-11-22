@@ -186,7 +186,7 @@
 		<script src="{{asset('/js/tiny-slider.js')}}"></script>
 		<script src="{{asset('/js/custom.js')}}"></script>
 		<script src = "{{asset('/js/detail.js')}}"></script>
-	
+		<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 	</body>

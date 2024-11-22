@@ -24,7 +24,7 @@
                         <td><img src="{{ asset('img/'.$item->img) }}" class="card-img-top" style="max-width:5em;" alt="..."></td>
                         <td>{{$item->tenhoa}}</td>
                         <td>{{$item->gia}}</td>
-                        <td>{{$item->ten_dm}}</td>
+                        <td>{{$item->danhmuc->ten_dm}}</td>
                         <td>
                             <a href="{{ route('edit', $item->id_hoa) }}" class="btn btn-primary mb-2">Chỉnh sửa</a>
                             <form action="{{ route('delete', $item->id_hoa) }}" method="POST">

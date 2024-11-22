@@ -98,11 +98,21 @@
                     <div class="col-md-6">
                       <a href="{{ route('cuahang') }}"><button class="btn btn-secondary me-2">Tiếp tục mua sắm</button></a>
                     </div>
-                    <div class="col-md-6 pl-5">
-                      <a href="{{ route('thanhtoan') }}">
-                        <button class="btn btn-secondary me-2">Tiến hành thanh toán</button>
-                      </a>
-                    </div>
+                    @if (Auth::id())
+                        <div class="col-md-6 pl-5">
+                            <a href="{{ route('thanhtoan') }}">
+                                <button class="btn btn-secondary me-2">Tiến hành thanh toán</button>
+                            </a>
+                        </div>
+                    @else
+                        <div class="col-md-6 pl-5">
+                            <a href="{{ route('custhanhtoan') }}">
+                                <button class="btn btn-secondary me-2">Tiến hành thanh toán</button>
+                            </a>
+                        </div>
+                    @endif
+
+                   
                   </div>
                 </div>
 

@@ -5,7 +5,11 @@
 
 
 		
-
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 		<!-- Start Why Choose Us Section -->
 	
 	
@@ -43,6 +47,17 @@
  					                       <button type="submit" class="btn btn-secondary mt-3">Thêm vào giỏ hàng</button>
  					                   </div>
  					               </form>
+								<form action="{{ route('thanhtoan.muangay') }}" method="POST" class="mt-3">
+								    @csrf
+								    <input type="hidden" name="id" value="{{ $hoa->id_hoa }}">
+								    <input type="hidden" name="img" value="{{ $hoa->img }}">
+								    <input type="hidden" name="name" value="{{ $hoa->tenhoa }}">
+								    <input type="hidden" name="price" value="{{ $hoa->gia }}">
+								    <input type="hidden" name="quantity" value="1"> 
+
+								    <button type="submit" class="btn btn-secondary mt-3">Mua ngay</button>
+								</form>
+
  					           </div>
  					       </div>
  					   </div>
